@@ -28,3 +28,9 @@ body {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.signin {
+  max-width: 450px;
+  margin-right: auto;
+  margin-left: auto;
+}
