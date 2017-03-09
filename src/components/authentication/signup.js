@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class Signin extends Component {
+export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +19,8 @@ export default class Signin extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+    const { email, username, password } = this.state;
+    this.props.signup(email, username, password)
     this.setState({ email: '', username: '', password: '' });
   }
 
