@@ -4,6 +4,7 @@ export default class Signin extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: '',
       username: '',
       password: '',
     };
@@ -18,12 +19,16 @@ export default class Signin extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({ username: '', password: '' });
+    this.setState({ email: '', username: '', password: '' });
   }
 
   render() {
     return (
       <form className="signin" action="" onSubmit={this.handleSubmit}>
+        <fieldset className="form-group">
+          <label>Email:</label>
+          <input type="email" name="email" value={this.state.email} onChange={this.handleChange} className="form-control" required />
+        </fieldset>
         <fieldset className="form-group">
           <label>Username:</label>
           <input name="username" value={this.state.username} onChange={this.handleChange} className="form-control" required />
