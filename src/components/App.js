@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Header from './header/header'
+import Header from './header/header';
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      authenticated: false
-    }
+      authenticated: false,
+    };
   }
   render() {
     return (
