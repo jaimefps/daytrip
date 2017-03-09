@@ -30,7 +30,7 @@ export default class Signin extends Component {
         </fieldset>
         <fieldset className="form-group">
           <label>Password:</label>
-          <input name="password" value={this.state.password} onChange={this.handleChange} className="form-control" required />
+          <input type="password" name="password" value={this.state.password} onChange={this.handleChange} className="form-control" required />
         </fieldset>
         <button action="submit" className="btn btn-primary">Sign In</button>
       </form>
