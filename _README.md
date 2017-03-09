@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Richard Hertzog
+  - __Scrum Master__: Aloak Misra
+  - __Development Team Members__: Zach Lipps
 
 ## Table of Contents
 
