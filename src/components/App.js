@@ -39,7 +39,12 @@ class App extends Component {
       localStorage.setItem('username', username);
       browserHistory.push('/home');
     }).catch(err => {
-      this.setState({ hasErr: true });
+      console.log('ERROR', JSON.stringify(err, null, 2))
+      if (!err.response) {
+        this.setState({hasErr: 'connection'})
+      } else {
+        this.setState({ hasErr: true });
+      }     
     })
   }
 
