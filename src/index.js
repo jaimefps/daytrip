@@ -10,6 +10,7 @@ import Signup from './components/authentication/signup';
 import Signout from './components/authentication/signout';
 import Landing from './components/landing'
 import Home from './components/home';
+import Profile from './components/profile/profile'
 import RequireAuth from './components/authentication/requireauth';
 
 var token = localStorage.getItem('token');
@@ -24,6 +25,7 @@ ReactDOM.render(
       <Route path="signup" component={Signup} />
       <Route path="home" component={RequireAuth(Home)} />
       <Route path="signout" component={Signout} />
+      <Route path="profile/:username" component={RequireAuth(Profile)} />
     </Route>
   </Router>
   ,

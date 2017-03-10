@@ -7,7 +7,7 @@ export default class Dropdown extends Component {
       <li className="dropdown closed">
         <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">{this.props.username} <span className="caret"></span></a>
         <ul className="dropdown-menu">
-          <li><a href="#">My Profile</a></li>
+          <li><Link to={`/profile/${this.props.username}`}>My Profile</Link></li>
           <li><a href="#">Another action</a></li>
           <li><a href="#">Something else here</a></li>
           <li role="separator" className="divider"></li>
