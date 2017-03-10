@@ -3,6 +3,21 @@ import Searchbar from './searchbar';
 import { Link } from 'react-router';
 
 export default class Header extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  renderLinks() {
+    if(!this.props.authenticated) {
+      return [   
+        <li key={1}><Link to="/signin">Sign In</Link></li>,
+        <li key={2}><Link to="/signup">Sign Up</Link></li>
+      ]
+    } else {
+      return <li><Link to="/signout">Sign Out</Link></li>
+    }
+  }
+
   render() {
     return (
       <nav className="navbar navbar-light">
@@ -19,8 +34,7 @@ export default class Header extends Component {
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav" />
             <ul className="nav navbar-nav navbar-right">
-              <li><Link to="/signin">Sign In</Link></li>
-              <li><Link to="/signup">Sign Up</Link></li>
+            {this.renderLinks()}
             </ul>
           </div>
         </div>
