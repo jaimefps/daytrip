@@ -1,5 +1,5 @@
 {
-  "name": "greenfield",
+  "name": "daytrip",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +8,7 @@
     "body-parser": "^1.17.1",
     "cors": "^2.8.1",
     "express": "^4.15.2",
+    "google-map-react": "^0.22.3",
     "jquery": "^3.1.1",
     "jwt-simple": "^0.5.1",
     "mongoose": "^4.8.6",
