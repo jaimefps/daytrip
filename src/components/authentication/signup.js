@@ -8,6 +8,7 @@ export default class Signup extends Component {
       username: '',
       password: '',
     };
+    console.log(this.props)
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -22,6 +23,16 @@ export default class Signup extends Component {
     const { email, username, password } = this.state;
     this.props.signup(email, username, password)
     this.setState({ email: '', username: '', password: '' });
+  }
+
+  renderAlert() {
+    if (this.props.err) {
+      return(
+        <div className="alert alert-danger">
+          <strong>{this.props.err}</strong>
+        </div>
+      )
+    }
   }
 
   render() {
@@ -39,7 +50,8 @@ export default class Signup extends Component {
           <label>Password:</label>
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange} className="form-control" required />
         </fieldset>
-        <button action="submit" className="btn btn-primary">Sign In</button>
+        {this.renderAlert()}
+        <button action="submit" className="btn btn-primary">Sign Up</button>
       </form>
     );
   }

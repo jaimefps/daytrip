@@ -18,7 +18,19 @@ export default class Signin extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+    const { username, password } = this.state
+    this.props.signin(username, password)
     this.setState({ username: '', password: '' });
+  }
+
+  renderAlert() {
+    if (this.props.hasErr) {
+      return(
+        <div className="alert alert-danger">
+          <strong>{this.props.hasErr === 'connection' ? 'Could not connect to server' : 'Incorrect login info'}</strong>
+        </div>
+      )
+    }
   }
 
   render() {
@@ -32,7 +44,8 @@ export default class Signin extends Component {
           <label>Password:</label>
           <input type="password" name="password" value={this.state.password} onChange={this.handleChange} className="form-control" required />
         </fieldset>
-        <button action="submit" className="btn btn-primary">Sign In</button>
+        {this.renderAlert()}
+        <button action="submit" className="btn btn-primary">Sign In</button>       
       </form>
     );
   }
