@@ -52,7 +52,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header authenticated={this.state.authenticated} />
+        <Header authenticated={this.state.authenticated} username={this.state.username}/>
         { renderChildren(this.props, this.state, this) }
       </div>
     );

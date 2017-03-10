@@ -19,7 +19,7 @@ export default function renderChildren(props, state, context) {
     } else if (child.type.name === 'RequireAuth') {
       return React.cloneElement(child, {
         authenticated: state.authenticated,
-        username: this.state.username
+        username: state.username
       })
     } else {
       return child;

@@ -8,6 +8,7 @@ import App from './components/App';
 import Signin from './components/authentication/signin';
 import Signup from './components/authentication/signup';
 import Signout from './components/authentication/signout';
+import Landing from './components/landing'
 import Home from './components/home';
 import RequireAuth from './components/authentication/requireauth';
 
@@ -18,6 +19,7 @@ var username = localStorage.getItem('username')
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={App} routerProps={[auth, username]} >
+      <IndexRoute component={Landing} />
       <Route path="signin" component={Signin} />
       <Route path="signup" component={Signup} />
       <Route path="home" component={RequireAuth(Home)} />

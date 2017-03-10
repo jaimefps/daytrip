@@ -1,5 +1,12 @@
-body {
+/*body {
   margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}*/
+
+.cont {
+  margin: auto;
+  max-width: 1250px;
   padding: 0;
   font-family: sans-serif;
 }
