@@ -23,7 +23,7 @@ class App extends Component {
 
   signup(email, username, password) {
     axios.post(`${config.server}/signup`, {email, username, password}).then(res => {
-      this.setState({ authenticated: true });
+      this.setState({ authenticated: true, username: username });
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('username', username);
       browserHistory.push('/home');
@@ -34,7 +34,7 @@ class App extends Component {
 
   signin(username, password) {
     axios.post(`${config.server}/signin`, {username, password}).then(res => {
-      this.setState({ authenticated: true });
+      this.setState({ authenticated: true, username: username });
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('username', username);
       browserHistory.push('/home');
@@ -54,10 +54,17 @@ class App extends Component {
     localStorage.removeItem('username');
   }
 
+  renderHeader() {
+    return this.props.location.pathname!=='/' ? 
+    <Header authenticated={this.state.authenticated} username={this.state.username}/> :
+    null
+  }
+
   render() {
+    console.log(this)
     return (
-      <div>
-        <Header authenticated={this.state.authenticated} username={this.state.username}/>
+      <div>   
+        {this.renderHeader()}     
         { renderChildren(this.props, this.state, this) }
       </div>
     );
