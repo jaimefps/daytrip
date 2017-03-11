@@ -12,7 +12,7 @@ export default function renderChildren(props, state, context) {
         signin: context.signin,
         hasErr: state.hasErr
       })
-    }  else if (child.type.name === 'Signout') {
+    } else if (child.type.name === 'Signout') {
       return React.cloneElement(child, {
         signout: context.signout
       })

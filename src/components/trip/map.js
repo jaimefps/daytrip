@@ -5,15 +5,16 @@ export default class Gmap extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      locations:[]
+      locations:[],
+      term: ''
     }
     this.addMarker = this.addMarker.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
   componentWillMount() {
     var context = this;
     loadJS("https://maps.googleapis.com/maps/api/js?key=AIzaSyAYVAslO99OwvCeZmCZG37ZOaUZ0p9DIUg&libraries=places", {
       success: function() {
-        context.setState({'test':1})
         context.map = new window.google.maps.Map(document.getElementById('map'), {
           center: {lat: 37.77, lng: -122.41},
           zoom: 12
@@ -30,8 +31,8 @@ export default class Gmap extends Component {
           var loc = context.state.locations
           console.log(places)
           context.setState({locations: [...loc, places]})
-          console.log(places[0].geometry.location.lat())
           context.addMarker(places[0].geometry.location.lat(), places[0].geometry.location.lng())
+          context.setState({ term: '' })
         })
 
       }
@@ -46,19 +47,25 @@ export default class Gmap extends Component {
     });
   }
 
-  renderLocations() {
-    
+ renderLocations() {
+    return this.state.locations.map(loc => {
+      return <div key={Math.random()}>{loc[0].formatted_address}</div>
+    })
+  }
+
+  handleChange(e) {
+    this.setState({term: e.target.value})
   }
 
 
   render() {
     return ( 
       <div>
-        <div style={{height: '400px', width:'500px', margin:'auto'}} id="map">
-        </div>
-        <input id="searchmap" className="form-control"/>
+        <div style={{height: '400px', width:'500px', margin:'auto'}} id="map" />
+        <input id="searchmap" className="form-control" value={this.state.term} onChange={this.handleChange}/>
+        {this.renderLocations()}
         <form>
-        <button action="submit" className="btn btn-primary">Create Trip</button>  
+          <button action="submit" className="btn btn-primary">Create Trip</button>  
         </form>
       </div>
     )

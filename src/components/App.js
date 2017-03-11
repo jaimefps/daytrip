@@ -54,11 +54,17 @@ class App extends Component {
     localStorage.removeItem('username');
   }
 
+  renderHeader() {
+    return this.props.location.pathname!=='/' ? 
+    <Header authenticated={this.state.authenticated} username={this.state.username}/> :
+    null
+  }
+
   render() {
-    
+    console.log(this)
     return (
-      <div>        
-        <Header authenticated={this.state.authenticated} username={this.state.username}/>
+      <div>   
+        {this.renderHeader()}     
         { renderChildren(this.props, this.state, this) }
       </div>
     );
