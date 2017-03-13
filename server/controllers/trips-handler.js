@@ -13,7 +13,8 @@ exports.getTrips = function(req, res) {
 }
 
 exports.postTrips = function(req, res) {
-  const { name, username, locations, coordinates } = req.body;
-  var trip = new Trips({ name, username, locations, coordinates });
+  console.log(req.body)
+  const { name, username, locations, coordinates, names } = req.body;
+  var trip = new Trips({ name, username, locations, coordinates, names });
   trip.save().then(trip => res.status(200).send(trip));
 }

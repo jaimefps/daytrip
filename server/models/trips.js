@@ -7,11 +7,11 @@ const tripSchema = new Schema({
     required: true
   },
   username: {
-    type: String,
-    unique: true,
+    type: String
   },
   locations: String,
   coordinates: String,
+  names: String,
   likes: {
     type: Number,
     default: 0

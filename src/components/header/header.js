@@ -5,9 +5,6 @@ import Searchbar from './searchbar';
 import Dropdown from './dropdown'
 
 export default class Header extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   renderLinks() {
     if(!this.props.authenticated) {
@@ -17,7 +14,7 @@ export default class Header extends Component {
       ]
     } else {
       return [
-      <Dropdown key = {1} username={this.props.username}/>,
+      <Dropdown key={1} username={this.props.username}/>,
       <Searchbar key={2}/>
       ]
     }
