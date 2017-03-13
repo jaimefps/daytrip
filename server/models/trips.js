@@ -11,6 +11,7 @@ const tripSchema = new Schema({
   },
   locations: String,
   coordinates: String,
+  names: String,
   likes: {
     type: Number,
     default: 0

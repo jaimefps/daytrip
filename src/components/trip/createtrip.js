@@ -16,27 +16,25 @@ export default class CreateTrip extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentWillMount() {
-    var context = this;
     loadJS("https://maps.googleapis.com/maps/api/js?key=AIzaSyAYVAslO99OwvCeZmCZG37ZOaUZ0p9DIUg&libraries=places", {
-      success: function() {
-        context.map = new window.google.maps.Map(document.getElementById('map'), {
+      success: () => {
+        this.map = new window.google.maps.Map(document.getElementById('map'), {
           center: {lat: 37.77, lng: -122.41},
           zoom: 12
         });
 
         var input = document.getElementById('searchmap');
-        context.searchBox = new window.google.maps.places.SearchBox(input);
-        context.map.addListener('bounds_changed', function() {
-          context.searchBox.setBounds(context.map.getBounds());
+        this.searchBox = new window.google.maps.places.SearchBox(input);
+        this.map.addListener('bounds_changed', () => {
+          this.searchBox.setBounds(this.map.getBounds());
         });
 
-        context.searchBox.addListener('places_changed', function() {
-          var places = context.searchBox.getPlaces();
-          var loc = context.state.locations;
-          context.setState({locations: [...loc, places]});
-          console.log(context.state.locations[0])
-          context.addMarker(places[0].geometry.location.lat(), places[0].geometry.location.lng());
-          context.setState({ term: '' });
+        this.searchBox.addListener('places_changed', () => {
+          var places = this.searchBox.getPlaces();
+          var loc = this.state.locations;
+          this.setState({locations: [...loc, places]});
+          this.addMarker(places[0].geometry.location.lat(), places[0].geometry.location.lng());
+          this.setState({ term: '' });
         })
 
       }
@@ -47,13 +45,16 @@ export default class CreateTrip extends Component {
     e.preventDefault();
     const name = this.state.name;
     const username = this.props.username
-    const locations = this.state.locations.map(item => item[0].formatted_address)
+    const locations = this.state.locations.map(item => item[0].formatted_address+'@@')
     const coordinates =  this.state.locations.map(item => [item[0].geometry.location.lat(), item[0].geometry.location.lng()])
-    axios.post(`${config.server}/trips`, { name, username, locations, coordinates })
+    const names = this.state.locations.map(item => item[0].name+'@@')
+    axios.post(`${config.server}/trips`, { name, username, locations, coordinates, names }).then(res => {
+      this.setState({ name: '' })
+    })
   }
 
   addMarker(lat, lng) {
-    var marker = new window.google.maps.Marker({
+    return new window.google.maps.Marker({
       position: {lat, lng},
       map: this.map,
       title: 'Hello World!'

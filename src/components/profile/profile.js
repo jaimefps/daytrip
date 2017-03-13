@@ -16,6 +16,6 @@ export default class Profile extends Component {
     }
   }
   render() {
-    return <div>this is user {this.props.username+"\'s"} profile</div>
+    return <div>this is user {this.props.username+"'s"} profile</div>
   }
 }
