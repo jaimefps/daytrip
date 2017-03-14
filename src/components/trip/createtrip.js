@@ -2,18 +2,27 @@ import React, { Component } from 'react';
 import loadJS from 'loadjs';
 import axios from 'axios';
 import config from '../../config';
+import LocationTile from './locationtile'
 
 export default class CreateTrip extends Component {
   constructor(props) {
     super(props);
     this.state = {
       locations:[],
-      term: '',
-      name:''
+      names: [],
+      tips: [],
+      location: '',
+      name:'', 
+      locationname: '',
+      tip: '',
+      coordinate: [],
+      place: {},
+      places: []
     }
     this.addMarker = this.addMarker.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
   componentWillMount() {
     loadJS("https://maps.googleapis.com/maps/api/js?key=AIzaSyAYVAslO99OwvCeZmCZG37ZOaUZ0p9DIUg&libraries=places", {
@@ -26,31 +35,27 @@ export default class CreateTrip extends Component {
         var input = document.getElementById('searchmap');
         this.searchBox = new window.google.maps.places.SearchBox(input);
         this.map.addListener('bounds_changed', () => {
-          this.searchBox.setBounds(this.map.getBounds());
+          this.searchBox.setBounds(this.map.getBounds()); 
         });
 
         this.searchBox.addListener('places_changed', () => {
-          var places = this.searchBox.getPlaces();
-          var loc = this.state.locations;
-          this.setState({locations: [...loc, places]});
-          this.addMarker(places[0].geometry.location.lat(), places[0].geometry.location.lng());
-          this.setState({ term: '' });
+          var place = this.searchBox.getPlaces();
+          // this.setState(places[0].geometry.location.lat(), places[0].geometry.location.lng());
+          this.setState({ location: place[0].formatted_address , place });
         })
 
-      }
+      } 
     })
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const name = this.state.name;
+    const { name, locations, tips, names } = this.state;
     const username = this.props.username
-    const locations = this.state.locations.map(item => item[0].formatted_address+'@@')
-    const coordinates =  this.state.locations.map(item => [item[0].geometry.location.lat(), item[0].geometry.location.lng()])
-    const names = this.state.locations.map(item => item[0].name+'@@')
-    axios.post(`${config.server}/trips`, { name, username, locations, coordinates, names }).then(res => {
+    axios.post(`${config.server}/trips`, { name, username, locations, tips, names }).then(res => {
       this.setState({ name: '' })
     })
+
   }
 
   addMarker(lat, lng) {
@@ -62,9 +67,9 @@ export default class CreateTrip extends Component {
   }
 
  renderLocations() {
-    return this.state.locations.map(loc => {
-      return <div key={Math.random()}>{loc[0].formatted_address}</div>
-    });
+    return this.state.locations.map((loc, i) => {
+      return <LocationTile key={i} place={this.state.places[i]} name={this.state.names[i]} tip={this.state.tips[i]} location={loc} />
+    }); 
   }
 
   handleChange(e) {
@@ -73,21 +78,54 @@ export default class CreateTrip extends Component {
     this.setState(state);
   }
 
+  handleAdd(e) {
+    e.preventDefault();
+    var { location, locationname, tip, place } = this.state;
+    var { locations, names, tips, places } = this.state;
+    this.setState({
+      locations: [...locations, location],
+      names: [...names, locationname],
+      tips: [...tips, tip],
+      places: [...places, place]
+    })
+    this.setState({
+      location: '',
+      locationname: '',
+      tip: '',
+    })
+  }
+
 
   render() {
     return ( 
       <div>
-        <div style={{height: '400px', width:'500px', margin:'auto'}} id="map" />
-        <input name="term" 
-          id="searchmap" 
-          className="form-control" 
-          value={this.state.term} 
-          onChange={this.handleChange}/>
-        <input name="name" onChange={this.handleChange} type="text" />
-        {this.renderLocations()}
-        <form onSubmit={this.handleSubmit}>
-          <button action="submit" className="btn btn-primary">Create Trip</button>  
-        </form>
+        <div style={{height: '400px', width:'500px'}} className="col-md-6" id="map" />
+        <div className="col-md-6">
+          <input name="name" onChange={this.handleChange} type="text" className="form-control" placeholder="Name your trip" />
+          <br/>
+          <div className="row">
+            <div className="col-md-4">
+              <input type="text" name="locationname" value={this.state.locationname} placeholder="Location name" className="form-control" onChange={this.handleChange}/>
+            </div>
+            <div className="col-md-8">
+              <input name="location" 
+              id="searchmap" 
+              className="form-control" 
+              value={this.state.location} 
+              onChange={this.handleChange}/>
+            </div>
+          </div>
+          <br/>
+          <textarea name="tip" className="form-control" placeholder="add your tips" value={this.state.tip} onChange={this.handleChange}></textarea>
+          <br/>
+          <form onSubmit={this.handleSubmit}>
+            <button action="submit" className="btn btn-primary">Create Trip</button>  
+          </form>
+          <form onSubmit={this.handleAdd}>
+            <button action="submit" className="btn btn-primary">Add Location</button>  
+          </form>
+          {this.renderLocations()}
+        </div>
       </div>
     );
 
