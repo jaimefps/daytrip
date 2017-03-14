@@ -10,8 +10,8 @@ const tripSchema = new Schema({
     type: String
   },
   locations: String,
-  coordinates: String,
   names: String,
+  tips: String,
   likes: {
     type: Number,
     default: 0
