@@ -17,6 +17,10 @@ html{
 body{
     height:100%; /* force the BODY element to match the height of the HTML element */
 }
+.createMap {
+  max-width: 1000px;
+  margin: auto;
+}
 .App {
   text-align: center;
 }
