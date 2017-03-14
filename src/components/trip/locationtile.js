@@ -4,7 +4,7 @@ export default props =>
   // console.log(JSON.stringify(props.place[0].photos, null, 2));
   // console.log(props.place[0].photos[2].getUrl({ maxWidth: 200, maxHeight: 200 }));
    (
-     <div className="panel panel-default">
+     <div className="panel panel-info">
        <div className="panel-heading">
          <h3 className="panel-title">{`${props.name} - ${props.location}`}</h3>
        </div>
