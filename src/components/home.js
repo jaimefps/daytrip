@@ -16,9 +16,6 @@ export default class Home extends Component {
     this.fetchTrips()
   }
 
-  componentDidUpdate() {
-    this.fetchTrips()
-  }
 
   fetchTrips() {
     return axios.get(`${config.server}/trips`).then(res => this.setState({ tripData: res.data }))

@@ -23,7 +23,9 @@ export default class TripShow extends Component {
       zoom: 12
     });
     const locations = this.props.trip.locations.split('@@');
+    const names = this.props.trip.names.split('@@');
     locations.pop();
+    names.pop();
     const coordinates = this.props.trip.coordinates;
     this.setState({ locations, coordinates });
     var SF = new window.google.maps.LatLng(37.77, -122.41);
@@ -33,27 +35,26 @@ export default class TripShow extends Component {
       var request = {
         location: SF,
         radius: '500',
-        query: loc
+        query: names[i] + ' ' + loc
       };
       service.textSearch(request, (results) => {
-        this.setState({data: [...this.state.data, results[0].name]})
+        this.setState({data: [...this.state.data, results[0].photos[0].getUrl({ maxWidth: 260, maxHeight: 260 })]})
       });
-
-  })
-    
+    })   
   }
 
   render() {
+    // console.log(this.state.data[0])
     return (
       <div className="panel panel-info">
        <div className="panel-heading">
          <h3 className="panel-title">{this.props.trip.name}</h3>
        </div>
        <div className="panel-body">
-         <div className="col-md-4">
-           {/*<img src={props.place[0].photos[0].getUrl({ maxWidth: 130, maxHeight: 130 })} />*/}
+         <div className="col-md-3">
+           <img src={this.state.data[0]} />
          </div>
-         <div className="col-md-8" style={{ wordWrap: 'break-word' }}>{this.props.trip.description}</div>
+         <div className="col-md-9" style={{ wordWrap: 'break-word' }}>{this.props.trip.description}</div>
        </div>
      </div>
 
