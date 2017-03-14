@@ -28,7 +28,7 @@ export default class CreateTrip extends Component {
     loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAYVAslO99OwvCeZmCZG37ZOaUZ0p9DIUg&libraries=places', {
       success: () => {
         this.map = new window.google.maps.Map(document.getElementById('map'), {
-          center: { lat: 37.77, lng: -122.41 },
+          center: { lat: 37.769, lng: -122.446 },
           zoom: 12,
         });
 
@@ -68,7 +68,7 @@ export default class CreateTrip extends Component {
   }
 
   renderLocations() {
-    return this.state.locations.map((loc, i) => <LocationTile key={i} place={this.state.places[i]} name={this.state.names[i]} tip={this.state.tips[i]} location={loc} />);
+    return this.state.locations.map((loc, i) => <div key={i}><br /><LocationTile place={this.state.places[i]} name={this.state.names[i]} tip={this.state.tips[i]} location={loc} /></div>);
   }
 
   handleChange(e) {

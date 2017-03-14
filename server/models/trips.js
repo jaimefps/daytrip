@@ -4,18 +4,19 @@ const Schema = mongoose.Schema;
 const tripSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   username: {
-    type: String
+    type: String,
   },
   locations: String,
+  description: String,
   names: String,
   tips: String,
   likes: {
     type: Number,
-    default: 0
-  }
-})
+    default: 0,
+  },
+});
 
 module.exports = mongoose.model('trips', tripSchema);
