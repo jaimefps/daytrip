@@ -29,7 +29,7 @@ export default class DefineTrip extends Component {
       <form style={{ display: this.props.toggle }} className="form-group col-md-6" onSubmit={this.handleSubmit}>
         <input value={this.state.name} name="name" onChange={this.handleChange} type="text" className="form-control" placeholder=" Name your trip " />
         <br />
-        <textarea name="tip" className="form-control" placeholder=" Add a description " value={this.state.tip} onChange={this.handleChange} />
+        <textarea name="description" className="form-control" placeholder=" Add a description " value={this.state.description} onChange={this.handleChange} />
         <br />
         <button action="submit" className="btn btn-primary">Create Trip</button>
       </form>

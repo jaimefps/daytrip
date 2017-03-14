@@ -22,7 +22,6 @@ export default class Gmap extends Component {
         });
         this.searchBox.addListener('places_changed', () => {
           var places = this.searchBox.getPlaces();
-          console.log(places)
         })
 
       }
@@ -41,9 +40,9 @@ export default class Gmap extends Component {
   render() {
     return ( 
       <div>
-        <div style={{height: '400px', width:'500px', margin:'auto'}} id="map">
+        <div id="map">
         </div>
-        <input id="searchmap" />
+        <input id="searchmap" style={{display: 'none'}}/>
       </div>
     )
 

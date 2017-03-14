@@ -29,7 +29,7 @@ export default class Home extends Component {
 
   render() {
     var tripComponents = this.state.tripData.map(trip => <Trip trip={trip} key={trip._id} map={this.state.map}/> );
-    return <div> HOME PAGE WITH DISPLAY MAP
+    return <div className="createMap">
     <Gmap getMap={this.getMap} />
     {tripComponents} 
     </div>

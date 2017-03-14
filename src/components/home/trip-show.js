@@ -31,7 +31,7 @@ export default class TripShow extends Component {
         loc = i === 0 ? loc : loc.slice(1);
         var request = {
           location: SF,
-          radius: '5000',
+          radius: '500',
           query: loc
         };
         service.textSearch(request, (results) => {
@@ -44,11 +44,26 @@ export default class TripShow extends Component {
   }
 
   render() {
-    return <div>
-      <h2>{this.props.trip.name}</h2>
-      {this.state.data.map(item => (
-        <h5 key={Math.random()}>{item}</h5>
-      ))}
-    </div>
+    // return <div>
+    //   <h2>{this.props.trip.name}</h2>
+    //   {this.state.data.map(item => (
+    //     <h5 key={Math.random()}>{item}</h5>
+    //   ))}
+    // </div>
+    return (
+      <div className="panel panel-info">
+       <div className="panel-heading">
+         <h3 className="panel-title">{this.props.trip.name}</h3>
+       </div>
+       <div className="panel-body">
+         <div className="col-md-4">
+           {/*<img src={props.place[0].photos[0].getUrl({ maxWidth: 130, maxHeight: 130 })} />*/}
+         </div>
+         <div className="col-md-8" style={{ wordWrap: 'break-word' }}>{this.props.trip.description}</div>
+       </div>
+     </div>
+
+
+    )
   }
 }

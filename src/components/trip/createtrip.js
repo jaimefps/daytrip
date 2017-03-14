@@ -4,6 +4,7 @@ import axios from 'axios';
 import config from '../../config';
 import LocationTile from './locationtile';
 import DefineTrip from './definetrip';
+import { browserHistory } from 'react-router'; 
 
 export default class CreateTrip extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ export default class CreateTrip extends Component {
 
         this.searchBox.addListener('places_changed', () => {
           const place = this.searchBox.getPlaces();
-          // this.setState(places[0].geometry.location.lat(), places[0].geometry.location.lng());
+          this.setState({coordinate: [place[0].geometry.location.lat(), place[0].geometry.location.lng()]});
           this.setState({ location: place[0].formatted_address, place });
         });
       },
@@ -58,6 +59,7 @@ export default class CreateTrip extends Component {
     axios.post(`${config.server}/trips`, { name, username, description, locations: locations.map(item => `${item}@@`), tips: tips.map(item => `${item}@@`), names: names.map(item => `${item}@@`) }).then((res) => {
       this.setState({ name: '' });
     });
+    browserHistory.push('/home')
   }
 
   addMarker(lat, lng) {
@@ -93,6 +95,7 @@ export default class CreateTrip extends Component {
       locationname: '',
       tip: '',
     });
+    this.addMarker(this.state.coordinate[0], this.state.coordinate[1])
   }
 
   createTrip(name, description) {
@@ -102,7 +105,8 @@ export default class CreateTrip extends Component {
   renderForm() {
     const toggle = !this.state.toggle ? 'none' : 'block';
     return (
-      <div style={{ display: toggle }} className="col-md-6">
+      <div style={{maxHeight: '600px', overflow: 'scroll'}} className="col-md-6">
+      <div style={{ display: toggle }} >
         <div className="row">
           <div className="col-md-4">
             <input type="text" name="locationname" value={this.state.locationname} placeholder="Location name" className="form-control" onChange={this.handleChange} />
@@ -130,6 +134,7 @@ export default class CreateTrip extends Component {
         </div>
         {this.renderLocations()}
       </div>
+      </div>
     );
   }
 
@@ -137,7 +142,7 @@ export default class CreateTrip extends Component {
     const toggle = this.state.toggle ? 'none' : 'block';
     return (
       <div className="createMap">
-        <div style={{ height: '500px', width: '500px' }} className="col-md-6" id="map" />
+        <div style={{ height: '600px', width: '600px' }} className="col-md-6" id="map" />
         <DefineTrip toggle={toggle} submit={this.createTrip} />
         {this.renderForm()}
       </div>
