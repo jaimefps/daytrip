@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import Gmap from './home/display-map'
 import config from '../config';
 import Trip from './home/trip-show'
 
@@ -10,16 +9,14 @@ export default class Home extends Component {
     this.state = {
       tripData: [],
       tripComponents: [],
-      map: false
     };
-    this.getMap = this.getMap.bind(this);
   }
 
-  getMap(map) {
-    this.setState({ map })
+  componentDidMount() {
+    this.fetchTrips()
   }
 
-  componentWillMount() {
+  componentDidUpdate() {
     this.fetchTrips()
   }
 
@@ -30,7 +27,7 @@ export default class Home extends Component {
   render() {
     var tripComponents = this.state.tripData.map(trip => <Trip trip={trip} key={trip._id} map={this.state.map}/> );
     return <div className="createMap">
-    <Gmap getMap={this.getMap} />
+    <div id='homemap' />
     {tripComponents} 
     </div>
   }

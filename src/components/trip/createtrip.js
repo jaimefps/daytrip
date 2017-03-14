@@ -29,7 +29,7 @@ export default class CreateTrip extends Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.createTrip = this.createTrip.bind(this);
   }
-  componentWillMount() {
+  componentDidMount() {
     loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAYVAslO99OwvCeZmCZG37ZOaUZ0p9DIUg&libraries=places', {
       success: () => {
         this.map = new window.google.maps.Map(document.getElementById('map'), {
