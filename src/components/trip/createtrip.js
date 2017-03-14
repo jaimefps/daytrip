@@ -51,7 +51,10 @@ export default class CreateTrip extends Component {
     e.preventDefault();
     const { name, locations, tips, names } = this.state;
     const username = this.props.username;
-    axios.post(`${config.server}/trips`, { name, username, locations, tips, names }).then((res) => {
+    // locations.forEach(item => `${item}@@`);
+    // tips.forEach(item => `${item}@@`);
+    // names.forEach(item => `${item}@@`);
+    axios.post(`${config.server}/trips`, { name, username, locations: locations.map(item => `${item}@@`), tips: tips.map(item => `${item}@@`), names: names.map(item => `${item}@@`) }).then((res) => {
       this.setState({ name: '' });
     });
   }
@@ -90,7 +93,6 @@ export default class CreateTrip extends Component {
       tip: '',
     });
   }
-
 
   render() {
     return (

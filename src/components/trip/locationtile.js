@@ -10,7 +10,7 @@ export default props =>
        </div>
        <div className="panel-body">
          <div className="col-md-4">
-           <img src={props.place[0].photos[0].getUrl({ maxWidth: 150, maxHeight: 150 })} />
+           <img src={props.place[0].photos[0].getUrl({ maxWidth: 130, maxHeight: 130 })} />
          </div>
          <div className="col-md-8" style={{ wordWrap: 'break-word' }}>{props.tip}</div>
        </div>
