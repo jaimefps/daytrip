@@ -13,6 +13,7 @@ const tripSchema = new Schema({
   description: String,
   names: String,
   tips: String,
+  images: String,
   likes: {
     type: Number,
     default: 0,

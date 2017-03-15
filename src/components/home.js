@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import config from '../config';
-import Trip from './home/trip-show'
+import Trip from './home/trip-show';
 
 export default class Home extends Component {
   constructor(props) {
@@ -13,19 +13,21 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    this.fetchTrips()
+    this.fetchTrips();
   }
 
+  componentWillUpdate() {
+    this.fetchTrips();
+  }
 
   fetchTrips() {
-    return axios.get(`${config.server}/trips`).then(res => this.setState({ tripData: res.data }))
+    return axios.get(`${config.server}/trips`).then(res => this.setState({ tripData: res.data }));
   }
 
   render() {
-    var tripComponents = this.state.tripData.map(trip => <Trip trip={trip} key={trip._id} map={this.state.map}/> );
-    return <div className="createMap">
-    <div id='homemap' />
-    {tripComponents} 
-    </div>
+    const tripComponents = this.state.tripData.map(trip => <Trip trip={trip} key={trip._id} />);
+    return (<div className="createMap">
+      {tripComponents}
+    </div>);
   }
-} 
+}
