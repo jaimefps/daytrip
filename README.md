@@ -1,6 +1,6 @@
 # Project Name
 
-> Pithy project description
+> A day trips app built in react using node, express, and mongo.
 
 ## Team
 
@@ -24,11 +24,9 @@
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 6.2.1
+- Express 4.15.2
+- Mongo 3.4.2
 
 ## Development
 
@@ -37,14 +35,12 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/daytrips/daytrip/issues)
 
 
 ## Contributing
