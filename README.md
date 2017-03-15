@@ -20,7 +20,7 @@
 
 ## Usage
 
-> Some usage instructions
+> Once hosted users can login to create trip lists associated with places on google maps. Fun day trip plans can be ranked by other users who can use them as a reference for themselves or make trips of their own.
 
 ## Requirements
 
