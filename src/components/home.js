@@ -10,6 +10,8 @@ export default class Home extends Component {
       tripData: [],
       tripComponents: [],
     };
+
+    this.fetchTrips = this.fetchTrips.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +27,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const tripComponents = this.state.tripData.map(trip => <Trip trip={trip} key={trip._id} />);
+    const tripComponents = this.state.tripData.map(trip => <Trip trip={trip} fetchkey={trip._id} />);
     return (<div className="createMap">
       {tripComponents}
     </div>);

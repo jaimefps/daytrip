@@ -22,14 +22,15 @@ export default class CreateTrip extends Component {
       place: {},
       places: [],
       images: [],
-
     };
+
     this.addMarker = this.addMarker.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.createTrip = this.createTrip.bind(this);
   }
+
   componentDidMount() {
     loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAYVAslO99OwvCeZmCZG37ZOaUZ0p9DIUg&libraries=places', {
       success: () => {

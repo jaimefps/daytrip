@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import loadJS from 'loadjs';
+import axios from 'axios';
+import config from '../../config';
 
 export default class TripShow extends Component {
   constructor(props) {
@@ -10,7 +12,10 @@ export default class TripShow extends Component {
       data: [],
       images: [],
     };
+
+    // this.handleClick = this.handleClick.bind(this);
   }
+
   componentDidMount() {
     const locations = this.props.trip.locations.split('@@');
     const names = this.props.trip.names.split('@@');
@@ -22,11 +27,33 @@ export default class TripShow extends Component {
     this.setState({ locations, coordinates, images });
   }
 
+
+  updateLikes(trip) {
+    const _id = trip._id;
+    const likes = trip.likes;
+    axios.put(`${config.server}/trips`, { _id, likes }).then((res) => {
+      console.log('put request sent from trip-show.js');
+    });
+  }
+
+  handleClick(e, trip) {
+    if (e.target.name === 'upvote') {
+      trip.likes += 1;
+      this.updateLikes(trip);
+    } else if (e.target.name === 'downvote') {
+      trip.likes -= 1;
+      this.updateLikes(trip);
+    }
+  }
+
   render() {
     return (
       <div className="panel panel-info">
         <div className="panel-heading">
-          <h3 className="panel-title">{this.props.trip.name}</h3>
+          <h3 className="panel-title">{this.props.trip.name}, {this.props.trip.likes} likes!
+            <button name="upvote" onClick={(e) => { this.handleClick(e, this.props.trip); }}>Upvote</button>
+            <button name="downvote" onClick={(e) => { this.handleClick(e, this.props.trip); }}>Downvote</button>
+          </h3>
         </div>
         <div className="panel-body">
           <div className="col-md-3">
@@ -35,8 +62,6 @@ export default class TripShow extends Component {
           <div className="col-md-9" style={{ wordWrap: 'break-word' }}>{this.props.trip.description}</div>
         </div>
       </div>
-
-
     );
   }
 }
