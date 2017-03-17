@@ -16,6 +16,7 @@ export default class Profile extends Component {
     }
   }
   render() {
+    console.log('props in profile: ', this.props)
     return <div>this is user {this.props.username+"'s"} profile</div>
   }
 }

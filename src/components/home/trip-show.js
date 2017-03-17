@@ -48,10 +48,12 @@ export default class TripShow extends Component {
 
   render() {
     return (
-      <div className="panel panel-info">
+      <div className="panel panel-info tiles">
         <div className="panel-heading">
           <h3 className="panel-title">{this.props.trip.name}, {this.props.trip.likes} likes!
+            <div className="divider" />
             <button name="upvote" onClick={(e) => { this.handleClick(e, this.props.trip); }}>Upvote</button>
+            <div className="divider" />
             <button name="downvote" onClick={(e) => { this.handleClick(e, this.props.trip); }}>Downvote</button>
           </h3>
         </div>

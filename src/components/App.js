@@ -11,9 +11,9 @@ class App extends Component {
     super(props);
     this.state = {
       authenticated: this.props.route.routerProps[0],
-      username: this.props.route.routerProps[1], 
+      username: this.props.route.routerProps[1],
       err: '',
-      hasErr: false
+      hasErr: false,
     };
 
     this.signup = this.signup.bind(this);
@@ -22,30 +22,30 @@ class App extends Component {
   }
 
   signup(email, username, password) {
-    axios.post(`${config.server}/signup`, {email, username, password}).then(res => {
-      this.setState({ authenticated: true, username: username });
+    axios.post(`${config.server}/signup`, { email, username, password }).then((res) => {
+      this.setState({ authenticated: true, username });
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('username', username);
       browserHistory.push('/home');
-    }).catch(err => {
+    }).catch((err) => {
       this.setState({ err: err.response.data.error });
-    })
+    });
   }
 
   signin(username, password) {
-    axios.post(`${config.server}/signin`, {username, password}).then(res => {
-      this.setState({ authenticated: true, username: username });
+    axios.post(`${config.server}/signin`, { username, password }).then((res) => {
+      this.setState({ authenticated: true, username });
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('username', username);
       browserHistory.push('/home');
-    }).catch(err => {
-      console.log('ERROR', JSON.stringify(err, null, 2))
+    }).catch((err) => {
+      console.log('ERROR', JSON.stringify(err, null, 2));
       if (!err.response) {
-        this.setState({hasErr: 'connection'})
+        this.setState({ hasErr: 'connection' });
       } else {
         this.setState({ hasErr: true });
-      }     
-    })
+      }
+    });
   }
 
   signout() {
@@ -55,17 +55,18 @@ class App extends Component {
   }
 
   renderHeader() {
-    return this.props.location.pathname!=='/' ? 
-    <Header authenticated={this.state.authenticated} username={this.state.username}/> :
-    null
+    return this.props.location.pathname !== '/' ?
+      <Header authenticated={this.state.authenticated} username={this.state.username} /> :
+    null;
   }
 
   render() {
     return (
-      <div>   
-        {this.renderHeader()}     
+      <div className="landing">
+        {this.renderHeader()}
         { renderChildren(this.props, this.state, this) }
       </div>
+
     );
   }
 }
