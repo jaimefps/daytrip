@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
 
 export default class Signup extends Component {
   constructor(props) {
@@ -8,7 +8,6 @@ export default class Signup extends Component {
       username: '',
       password: '',
     };
-    console.log(this.props)
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -21,17 +20,17 @@ export default class Signup extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { email, username, password } = this.state;
-    this.props.signup(email, username, password)
+    this.props.signup(email, username, password);
     this.setState({ email: '', username: '', password: '' });
   }
 
   renderAlert() {
     if (this.props.err) {
-      return(
+      return (
         <div className="alert alert-danger">
           <strong>{this.props.err}</strong>
         </div>
-      )
+      );
     }
   }
 
