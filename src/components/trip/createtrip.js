@@ -22,14 +22,16 @@ export default class CreateTrip extends Component {
       place: {},
       places: [],
       images: [],
-
+      likes: 0,
     };
+
     this.addMarker = this.addMarker.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.createTrip = this.createTrip.bind(this);
   }
+
   componentDidMount() {
     loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAYVAslO99OwvCeZmCZG37ZOaUZ0p9DIUg&libraries=places', {
       success: () => {
@@ -55,7 +57,7 @@ export default class CreateTrip extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { name, locations, tips, names, description, images } = this.state;
+    const { name, locations, tips, names, description, images, likes } = this.state;
     const username = this.props.username;
     axios.post(`${config.server}/trips`, { name, username, description, images: images.map(item => `${item}@@`), locations: locations.map(item => `${item}@@`), tips: tips.map(item => `${item}@@`), names: names.map(item => `${item}@@`) }).then((res) => {
       this.setState({ name: '' });

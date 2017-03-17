@@ -11,6 +11,7 @@ export default class TripShow extends Component {
       images: [],
     };
   }
+
   componentDidMount() {
     const locations = this.props.trip.locations.split('@@');
     const names = this.props.trip.names.split('@@');
@@ -22,11 +23,15 @@ export default class TripShow extends Component {
     this.setState({ locations, coordinates, images });
   }
 
+  handleClick() {
+
+  }
+
   render() {
     return (
       <div className="panel panel-info">
         <div className="panel-heading">
-          <h3 className="panel-title">{this.props.trip.name}</h3>
+          <h3 className="panel-title">{this.props.trip.name}, {this.props.trip.likes} likes!</h3>
         </div>
         <div className="panel-body">
           <div className="col-md-3">
