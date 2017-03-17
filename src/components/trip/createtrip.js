@@ -22,7 +22,6 @@ export default class CreateTrip extends Component {
       place: {},
       places: [],
       images: [],
-      likes: 0,
     };
 
     this.addMarker = this.addMarker.bind(this);
@@ -57,7 +56,7 @@ export default class CreateTrip extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { name, locations, tips, names, description, images, likes } = this.state;
+    const { name, locations, tips, names, description, images } = this.state;
     const username = this.props.username;
     axios.post(`${config.server}/trips`, { name, username, description, images: images.map(item => `${item}@@`), locations: locations.map(item => `${item}@@`), tips: tips.map(item => `${item}@@`), names: names.map(item => `${item}@@`) }).then((res) => {
       this.setState({ name: '' });

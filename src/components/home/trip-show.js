@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import loadJS from 'loadjs';
+import axios from 'axios';
+import config from '../../config';
 
 export default class TripShow extends Component {
   constructor(props) {
@@ -25,12 +27,19 @@ export default class TripShow extends Component {
     this.setState({ locations, coordinates, images });
   }
 
-  handleClick(e) {
-    if (e.target.name === 'upvote') {
-      console.log('upvote clicked');
-    } else if (e.target.name === 'downvote') {
-      console.log('downvote clicked');
-    }
+  // axios.post(`${config.server}/trips`, { name, username, description}.then((res) => {
+  //   this.setState({ name: '' });
+  // });
+
+  handleClick(e, trip) {
+    console.log(e.target.name);
+    console.log(trip);
+    // if (e.target.name === 'upvote') {
+    //   console.log('upvote clicked', this.props.trip.likes);
+    // } else if (e.target.name === 'downvote') {
+    //   this.props.trip.likes = this.props.trip.likes + 1;
+    //   console.log('downvote clicked', this.props.trip.likes);
+    // }
   }
 
   render() {
@@ -38,8 +47,8 @@ export default class TripShow extends Component {
       <div className="panel panel-info">
         <div className="panel-heading">
           <h3 className="panel-title">{this.props.trip.name}, {this.props.trip.likes} likes!
-            <button name="upvote" onClick={this.handleClick}>Upvote</button>
-            <button name="downvote" onClick={this.handleClick}>Downvote</button>
+            <button name="upvote" onClick={(e) => { this.handleClick(e, this.props.trip); }}>Upvote</button>
+            <button name="downvote" onClick={(e) => { this.handleClick(e, this.props.trip); }}>Downvote</button>
           </h3>
         </div>
         <div className="panel-body">

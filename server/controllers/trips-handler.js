@@ -18,3 +18,8 @@ exports.postTrips = function (req, res) {
   const trip = new Trips({ name, username, locations, description, names, tips, images });
   trip.save().then(trip => res.status(200).send(trip));
 };
+
+exports.putTrips = function (req, res) {
+  console.log(req.body);
+  const { likes } = req.body;
+};
