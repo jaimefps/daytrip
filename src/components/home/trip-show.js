@@ -13,7 +13,7 @@ export default class TripShow extends Component {
       images: [],
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -27,19 +27,23 @@ export default class TripShow extends Component {
     this.setState({ locations, coordinates, images });
   }
 
-  // axios.post(`${config.server}/trips`, { name, username, description}.then((res) => {
-  //   this.setState({ name: '' });
-  // });
+
+  updateLikes(trip) {
+    const _id = trip._id;
+    const likes = trip.likes;
+    axios.put(`${config.server}/trips`, { _id, likes }).then((res) => {
+      console.log('put request sent from trip-show.js');
+    });
+  }
 
   handleClick(e, trip) {
-    console.log(e.target.name);
-    console.log(trip);
-    // if (e.target.name === 'upvote') {
-    //   console.log('upvote clicked', this.props.trip.likes);
-    // } else if (e.target.name === 'downvote') {
-    //   this.props.trip.likes = this.props.trip.likes + 1;
-    //   console.log('downvote clicked', this.props.trip.likes);
-    // }
+    if (e.target.name === 'upvote') {
+      trip.likes += 1;
+      this.updateLikes(trip);
+    } else if (e.target.name === 'downvote') {
+      trip.likes -= 1;
+      this.updateLikes(trip);
+    }
   }
 
   render() {

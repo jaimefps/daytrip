@@ -20,6 +20,12 @@ exports.postTrips = function (req, res) {
 };
 
 exports.putTrips = function (req, res) {
-  console.log(req.body);
-  const { likes } = req.body;
+  const { likes, _id } = req.body;
+  console.log('req', req);
+  console.log('res', res);
+  Trips.findByIdAndUpdate(req.body._id, req.body, (err, data) => {
+    if (err) { console.error(err); }
+  });
+  res.send('Rating sent');
 };
+
