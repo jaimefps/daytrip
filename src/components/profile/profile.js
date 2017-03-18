@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import config from '../../config';
 import Trips from './trips';
+import Favorites from './favorites';
+import Friends from './friends';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -10,6 +12,9 @@ export default class Profile extends Component {
       router: React.PropTypes.object,
       userInfo: '',
       currentTab: <div />,
+      tripsTab: 'btn btn-primary',
+      favoritesTab: 'btn btn-default',
+      friendsTab: 'btn btn-default',
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -44,12 +49,42 @@ export default class Profile extends Component {
   }
 
   handleClick(e) {
-    this.setState({ currentTab: e.target.id });
+    // this.setState({ currentTab: e.target.id });
+    if (e.target.id === 'trips') {
+      this.setState({
+        currentTab: e.target.id,
+        tripsTab: 'btn btn-primary',
+        favoritesTab: 'btn btn-default',
+        friendsTab: 'btn btn-default',
+      });
+    }
+    if (e.target.id === 'favorites') {
+      this.setState({
+        currentTab: e.target.id,
+        tripsTab: 'btn btn-default',
+        favoritesTab: 'btn btn-primary',
+        friendsTab: 'btn btn-default',
+      });
+    }
+    if (e.target.id === 'friends') {
+      this.setState({
+        currentTab: e.target.id,
+        tripsTab: 'btn btn-default',
+        favoritesTab: 'btn btn-default',
+        friendsTab: 'btn btn-primary',
+      });
+    }
   }
 
   renderChild() {
     if (this.state.currentTab === 'trips') {
       return <Trips />;
+    }
+    if (this.state.currentTab === 'favorites') {
+      return <Favorites />;
+    }
+    if (this.state.currentTab === 'friends') {
+      return <Friends />;
     }
   }
 
@@ -67,17 +102,17 @@ export default class Profile extends Component {
         </div>
         <div className="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="trips" className="btn btn-primary"><span className="glyphicon glyphicon-star" />
+            <button onClick={this.handleClick} type="button" id="trips" className={this.state.tripsTab}><span className="glyphicon glyphicon-star" />
               <div className="hidden-xs">Trips</div>
             </button>
           </div>
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="favorites" className="btn btn-default"><span className="glyphicon glyphicon-heart" />
+            <button onClick={this.handleClick} type="button" id="favorites" className={this.state.favoritesTab}><span className="glyphicon glyphicon-heart" />
               <div className="hidden-xs">Favorites</div>
             </button>
           </div>
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="friends" className="btn btn-default"><span className="glyphicon glyphicon-user" />
+            <button onClick={this.handleClick} type="button" id="friends" className={this.state.friendsTab}><span className="glyphicon glyphicon-user" />
               <div className="hidden-xs">Friends</div>
             </button>
           </div>
