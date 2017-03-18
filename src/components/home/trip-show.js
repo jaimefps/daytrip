@@ -30,10 +30,10 @@ export default class TripShow extends Component {
 
 
   updateRoute(route, action) {
-    const { username, trip:{_id, likes} } = this.props;
+    const { username, trip:{_id, likes, likesByUsers} } = this.props;
     let del = false
     if (action === 'delete') {del = true;}
-    axios.put(`${config.server}/${route}`, { _id, likes, username, del }).then((res) => {
+    axios.put(`${config.server}/${route}`, { _id, likes, username, del, likesByUsers }).then((res) => {
       this.props.fetchUserData() 
     });
   }
@@ -42,10 +42,14 @@ export default class TripShow extends Component {
   handleClick(e) {
     if (e.target.name === 'upvote') {
       this.props.trip.likes += 1;
+      this.props.trip.likesByUsers.push(this.props.username);
+      e.target.name = 'downvote'
       this.updateRoute('trips');
     } else if (e.target.name === 'downvote') {
       this.props.trip.likes -= 1;
-      this.updateRoute('trips');
+      _.pull(this.props.trip.likesByUsers, this.props.username)
+      e.target.name = 'upvote'
+      this.updateRoute('trips', 'delete');
     } else if (e.target.name === 'favorite'){
       const action = this.renderFavoritesButtonCaption() === 'Remove from favorites' ? 'delete' : null
       this.updateRoute('user', action);
@@ -57,15 +61,19 @@ export default class TripShow extends Component {
     return _.includes(userData.favorites, trip._id) ? 'Remove from favorites' : 'Add to favorites';
   }
 
+  renderLikesButtonCaption() {
+    const {trip, username} = this.props;
+    return _.includes(trip.likesByUsers, username) ? 'Remove Like' : 'Add Like'
+  }
+
   render() {
     return (
       <div className="panel panel-info">
         <div className="panel-heading">
           <h3 className="panel-title">{this.props.trip.name}, {this.props.trip.likes} likes!
             <div className="divider" />
-            <button name="upvote" onClick={this.handleClick}>Upvote</button>
+            <button name="upvote" onClick={this.handleClick}>{this.renderLikesButtonCaption()}</button>
             <div className="divider" />
-            <button name="downvote" onClick={this.handleClick}>Downvote</button>
             <button name="favorite" onClick={this.handleClick}>{this.renderFavoritesButtonCaption()}</button>
           </h3>
         </div>

@@ -20,9 +20,7 @@ exports.putUserInfo = function (req, res) {
       user.favorites.splice(user.favorites.indexOf(_id), 1)
       return user.save().then(trip => res.status(200).send(trip)); 
     }
-
     Trips.findById(_id).then(trip => {
-      //prob a check to see if it exists already 
       user.favorites.push(trip._id);
       user.save().then(trip => res.status(200).send(trip)); 
     })
