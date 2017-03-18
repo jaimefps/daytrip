@@ -5,6 +5,7 @@ const tripSchema = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true
   },
   username: {
     type: String,
@@ -16,9 +17,9 @@ const tripSchema = new Schema({
   images: String,
   likes: {
     type: Number,
-    users: Array, // will be used for tracking up/downvotes
     default: 0,
   },
+  likesByUsers: Array
 });
 
 module.exports = mongoose.model('trips', tripSchema);
