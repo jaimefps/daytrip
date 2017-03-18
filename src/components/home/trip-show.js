@@ -30,11 +30,10 @@ export default class TripShow extends Component {
 
 
   updateRoute(trip, route) {
-    console.log("trip on line 32",trip)
     const { _id, likes } = trip;
     const { username } = localStorage;
     axios.put(`${config.server}/${route}`, { _id, likes, username }).then((res) => {
-      console.log('put request sent from trip-show.js for likes');
+      console.log('put request sent from trip-show.js for likes', res); 
     });
   }
 
