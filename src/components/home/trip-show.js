@@ -14,6 +14,7 @@ export default class TripShow extends Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.updateRoute = this.updateRoute.bind(this); 
   }
 
   componentDidMount() {
@@ -29,9 +30,10 @@ export default class TripShow extends Component {
 
 
   updateRoute(trip, route) {
+    console.log("trip on line 32",trip)
     const { _id, likes } = trip;
-    
-    axios.put(`${config.server}/${route}`, { _id, likes }).then((res) => {
+    const { username } = localStorage;
+    axios.put(`${config.server}/${route}`, { _id, likes, username }).then((res) => {
       console.log('put request sent from trip-show.js for likes');
     });
   }
@@ -44,7 +46,9 @@ export default class TripShow extends Component {
     } else if (e.target.name === 'downvote') {
       trip.likes -= 1;
       this.updateRoute(trip, 'trips');
-    } 
+    } else if (e.target.name === 'favorite'){
+      this.updateRoute(trip, 'user');
+    }
   }
 
   render() {
@@ -56,6 +60,7 @@ export default class TripShow extends Component {
             <button name="upvote" onClick={(e) => { this.handleClick(e, this.props.trip); }}>Upvote</button>
             <div className="divider" />
             <button name="downvote" onClick={(e) => { this.handleClick(e, this.props.trip); }}>Downvote</button>
+            <button name="favorite" onClick={(e) => { this.handleClick(e, this.props.trip); }}>Favorite</button>
           </h3>
         </div>
         <div className="panel-body">
