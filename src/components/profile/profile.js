@@ -7,7 +7,7 @@ export default class Profile extends Component {
     super(props);
     this.state = {
       router: React.PropTypes.object,
-      userInfo: [],
+      userInfo: '',
     };
 
     this.getUserInfo = this.getUserInfo.bind(this);
@@ -34,7 +34,7 @@ export default class Profile extends Component {
   getUserInfo() {
     return axios.get(`${config.server}/user`, { params: { username: this.props.username } })
     .then((res) => {
-      console.log('response from get', res);
+      this.setState({ userInfo: res.data });
     })
     .catch((err) => {
       console.error(err);
@@ -42,7 +42,6 @@ export default class Profile extends Component {
   }
     // return <div>this is user {this.props.username+"'s"} profile</div>
   render() {
-    // console.log('props in profile: ', this.props);
     return (
       <div className="col-lg-6 col-sm-6">
         <div className="card hovercard">
