@@ -9,7 +9,6 @@ export default class TripShow extends Component {
     super(props);
     this.state = {
       locations: [],
-      coordinates: [],
       data: [],
       images: [],
     };
@@ -18,21 +17,14 @@ export default class TripShow extends Component {
   }
 
   componentDidMount() {
-    const locations = this.props.trip.locations.split('@@');
-    const names = this.props.trip.names.split('@@');
-    const images = this.props.trip.images.split('@@');
-    locations.pop();
-    names.pop();
-    images.pop();
-    const coordinates = this.props.trip.coordinates;
-    this.setState({ locations, coordinates, images });
+    const { locations, images } = this.props.trip
+    this.setState({ locations, images });
   }
 
 
   updateRoute(route, action) {
     const { username, trip:{_id, likes, likesByUsers} } = this.props;
-    let del = false
-    if (action === 'delete') {del = true;}
+    let del = (action === 'delete') ?  true : false
     axios.put(`${config.server}/${route}`, { _id, likes, username, del, likesByUsers }).then((res) => {
       this.props.fetchUserData() 
     });
