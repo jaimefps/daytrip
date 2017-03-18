@@ -73,7 +73,7 @@ export default class CreateTrip extends Component {
   }
 
   renderLocations() {
-    return this.state.locations.map((loc, i) => <div key={i}><br /><LocationTile place={this.state.places[i]} name={this.state.names[i]} tip={this.state.tips[i]} location={loc} /></div>);
+    return this.state.locations.map((loc, i) => <div key={i}><br /><LocationTile image={this.state.images[i]} name={this.state.names[i]} tip={this.state.tips[i]} location={loc} /></div>);
   }
 
   handleChange(e) {
@@ -86,7 +86,7 @@ export default class CreateTrip extends Component {
     e.preventDefault();
     const { location, locationname, tip, place } = this.state;
     const { locations, names, tips, places, images } = this.state;
-    const image = place[0].photos[0].getUrl({ maxWidth: 200, maxHeight: 200 });
+    const image = place[0].photos ? place[0].photos[0].getUrl({ maxWidth: 200, maxHeight: 200 }) : 'https://lh5.googleusercontent.com/-j52sfSDXIK8/V7O0JNtse6I/AAAAAAAAABE/xfYLPW9Eu_4U7JESHATtv26-jZMvpKgzQCLIB/w130-h130-k/' ;
     this.setState({
       locations: [...locations, location],
       names: [...names, locationname],
