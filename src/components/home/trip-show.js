@@ -61,7 +61,7 @@ export default class TripShow extends Component {
     return (
       <div className="panel panel-info">
         <div className="panel-heading">
-          <h3 className="panel-title">{this.props.trip.name}, {this.props.trip.likes} likes!
+          <h3 className="panel-title">{this.props.trip.tripName}, {this.props.trip.likes} likes!
             <div className="divider" />
             <button name="upvote" onClick={this.handleClick}>{this.renderLikesButtonCaption()}</button>
             <div className="divider" />

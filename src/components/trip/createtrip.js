@@ -13,15 +13,14 @@ export default class CreateTrip extends Component {
       locations: [],
       names: [],
       tips: [],
-      location: '',
-      name: '',
-      locationname: '',
-      toggle: false,
-      tip: '',
       coordinate: [],
       place: {},
-      places: [],
       images: [],
+      location: '',
+      tripName: '',
+      locationName: '',
+      tip: '',
+      toggle: false,
     };
 
     this.addMarker = this.addMarker.bind(this);
@@ -56,19 +55,29 @@ export default class CreateTrip extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { name, locations, tips, names, description, images } = this.state;
+    const { tripName, locations, tips, names, description, images } = this.state;
     const username = this.props.username;
-    axios.post(`${config.server}/trips`, { name, username, description, images, locations, tips, names }).then((res) => {
-      this.setState({ name: '' });
+    axios.post(`${config.server}/trips`, { tripName, username, description, images, locations, tips, names }).then((res) => {
+      this.setState({ tripName: '' });
     });
     browserHistory.push('/home');
   }
 
   addMarker(lat, lng) {
-    return new window.google.maps.Marker({
+    var contentString = `<div id="content"><div id="siteNotice"></div>
+            <h3 id="firstHeading" class="firstHeading">${this.state.locationName}</h3>
+            <div id="bodyContent"><p>
+            <p><b>Address: </b> ${this.state.location}</p>
+            <b>Tips: </b>${this.state.tip}</p></div></div>`;
+    var infowindow = new window.google.maps.InfoWindow({ content: contentString });
+    var marker = new window.google.maps.Marker({
       position: { lat, lng },
       map: this.map,
-      title: 'Hello World!',
+      title: this.state.locationName,
+      animation: window.google.maps.Animation.DROP
+    });
+    marker.addListener('click', function() {
+      infowindow.open(this.map, marker);
     });
   }
 
@@ -84,26 +93,25 @@ export default class CreateTrip extends Component {
 
   handleAdd(e) {
     e.preventDefault();
-    const { location, locationname, tip, place } = this.state;
-    const { locations, names, tips, places, images } = this.state;
+    const { location, locationName, tip, place } = this.state;
+    const { locations, names, tips, images } = this.state;
     const image = place[0].photos ? place[0].photos[0].getUrl({ maxWidth: 200, maxHeight: 200 }) : 'https://lh5.googleusercontent.com/-j52sfSDXIK8/V7O0JNtse6I/AAAAAAAAABE/xfYLPW9Eu_4U7JESHATtv26-jZMvpKgzQCLIB/w130-h130-k/' ;
     this.setState({
       locations: [...locations, location],
-      names: [...names, locationname],
+      names: [...names, locationName],
       tips: [...tips, tip],
-      places: [...places, place],
       images: [...images, image],
     });
     this.setState({
       location: '',
-      locationname: '',
+      locationName: '',
       tip: '',
     });
     this.addMarker(this.state.coordinate[0], this.state.coordinate[1]);
   }
 
-  createTrip(name, description) {
-    this.setState({ name, description, toggle: true });
+  createTrip(tripName, description) {
+    this.setState({ tripName, description, toggle: true });
   }
 
   renderForm() {
@@ -113,7 +121,7 @@ export default class CreateTrip extends Component {
         <div style={{ display: toggle }} >
           <div className="row">
             <div className="col-md-4">
-              <input type="text" name="locationname" value={this.state.locationname} placeholder="Location name" className="form-control" onChange={this.handleChange} />
+              <input type="text" name="locationName" value={this.state.locationName} placeholder="Location name" className="form-control" onChange={this.handleChange} />
             </div>
             <div className="col-md-8">
               <input
