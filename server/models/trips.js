@@ -10,11 +10,11 @@ const tripSchema = new Schema({
   username: {
     type: String,
   },
-  locations: String,
+  locations: Array,
   description: String,
-  names: String,
-  tips: String,
-  images: String,
+  names: Array,
+  tips: Array,
+  images: Array,
   likes: {
     type: Number,
     default: 0,
