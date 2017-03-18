@@ -21,7 +21,7 @@ export default class Header extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-default tiles" role="navigation">
+      <nav className="navbar tiles" role="navigation" className={this.props.pathname === '/signin' || this.props.pathname === '/signup' ? 'navbar-light' : 'navbar-default'}>
         <div className="container-fluid">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

@@ -29,6 +29,7 @@ export default class Home extends Component {
   render() {
     const tripComponents = this.state.tripData.map(trip => <Trip trip={trip} fetchkey={trip._id} />);
     return (<div className="createMap">
+      <br />
       {tripComponents}
     </div>);
   }
