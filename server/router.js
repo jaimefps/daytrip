@@ -1,5 +1,6 @@
 const Authentication = require('./controllers/authentication');
 const tripsHandler = require('./controllers/trips-handler');
+const userHandler = require('./controllers/user-handler');
 const passportService = require('./services/passport');
 const passport = require('passport');
 
@@ -13,4 +14,5 @@ module.exports = function (app) {
   app.get('/trips/' /* requireSignin*/, tripsHandler.getTrips);
   app.post('/trips' /* requireSignin*/, tripsHandler.postTrips);
   app.put('/trips', tripsHandler.putTrips);
+  app.get('/user', userHandler.getUserInfo);
 };
