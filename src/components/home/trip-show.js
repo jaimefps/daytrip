@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import loadJS from 'loadjs';
 import axios from 'axios';
 import config from '../../config';
 import _ from 'lodash'
@@ -71,7 +70,7 @@ export default class TripShow extends Component {
         </div>
         <div className="panel-body">
           <div className="col-md-3">
-            <img src={this.state.images[0]} />
+            <img src={this.state.images[0]} alt='' />
           </div>
           <div className="col-md-9" style={{ wordWrap: 'break-word' }}>{this.props.trip.description}</div>
         </div>
