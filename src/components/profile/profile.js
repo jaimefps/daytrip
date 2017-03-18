@@ -76,8 +76,11 @@ export default class Profile extends Component {
     }
   }
 
+
   renderChild() {
+    console.log(this.state.userInfo); 
     if (this.state.currentTab === 'trips') {
+      // const userTrips = this.state.userInfo.trips.map(trip => <Trips trip={trip} fetchkey={trip._id} />);
       return <Trips />;
     }
     if (this.state.currentTab === 'favorites') {

@@ -20,3 +20,4 @@ export default class Favorites extends Component {
     );
   }
 }
+

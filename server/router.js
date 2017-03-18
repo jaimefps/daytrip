@@ -15,4 +15,5 @@ module.exports = function (app) {
   app.post('/trips' /* requireSignin*/, tripsHandler.postTrips);
   app.put('/trips', tripsHandler.putTrips);
   app.get('/user', userHandler.getUserInfo);
+  app.put('/user', userHandler.putUserInfo); 
 };

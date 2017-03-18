@@ -19,7 +19,6 @@ exports.postTrips = function (req, res) {
 };
 
 exports.putTrips = function (req, res) {
-  const { likes, _id } = req.body;
   Trips.findByIdAndUpdate(req.body._id, req.body, (err, data) => {
     if (err) { console.error(err); }
   });
