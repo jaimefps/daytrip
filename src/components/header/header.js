@@ -2,27 +2,26 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 import Searchbar from './searchbar';
-import Dropdown from './dropdown'
+import Dropdown from './dropdown';
 
 export default class Header extends Component {
 
   renderLinks() {
-    if(!this.props.authenticated) {
-      return [   
-        <li key={1}><Link to="/signin">Sign In</Link></li>,
-        <li key={2}><Link to="/signup">Sign Up</Link></li>
-      ]
-    } else {
+    if (!this.props.authenticated) {
       return [
-      <Dropdown key={1} username={this.props.username}/>,
-      <Searchbar key={2}/>
-      ]
+        <li key={1}><Link to="/signin">Sign In</Link></li>,
+        <li key={2}><Link to="/signup">Sign Up</Link></li>,
+      ];
     }
+    return [
+      <Dropdown key={1} username={this.props.username} />,
+      <Searchbar key={2} />,
+    ];
   }
 
   render() {
     return (
-      <nav className="navbar navbar-default" role="navigation">
+      <nav className="navbar navbar-default tiles" role="navigation">
         <div className="container-fluid">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -36,7 +35,7 @@ export default class Header extends Component {
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav" />
             <ul className="nav navbar-nav navbar-right">
-            {this.renderLinks()}
+              {this.renderLinks()}
             </ul>
           </div>
         </div>

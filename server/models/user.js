@@ -6,34 +6,37 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    lowercase: true
-	},
+    lowercase: true,
+  },
   username: {
     type: String,
     unique: true,
   },
-  password: String
-})
+  password: String,
+  trips: Array,
+  favorites: Array,
+  friends: Array,
+});
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return next(err);
 
     bcrypt.hash(this.password, salt, null, (err, hash) => {
-      if(err) return next(err);
+      if (err) return next(err);
       this.password = hash;
       next();
-    })	
-  })
-})
+    });
+  });
+});
 
-userSchema.methods.comparePassword = function(password, callback) {
+userSchema.methods.comparePassword = function (password, callback) {
   bcrypt.compare(password, this.password, (err, match) => {
-    if(err) return callback(err);
+    if (err) return callback(err);
 
-    callback(null, match)
-  })
-}
+    callback(null, match);
+  });
+};
 
- 
-module.exports = mongoose.model('user', userSchema)
+
+module.exports = mongoose.model('user', userSchema);

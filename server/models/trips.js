@@ -16,6 +16,7 @@ const tripSchema = new Schema({
   images: String,
   likes: {
     type: Number,
+    users: Array, // will be used for tracking up/downvotes
     default: 0,
   },
 });
