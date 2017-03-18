@@ -10,7 +10,13 @@ export default class Friends extends Component {
 
   render() {
     return (
-      <div>I'm the fucking man (friends)</div>
+      <div className="well">
+        <div className="tab-content">
+          <div className="tab-pane fade in active" id="tab1">
+            <h3>Inside friends tab!</h3>
+          </div>
+        </div>
+      </div>
     );
   }
 }
