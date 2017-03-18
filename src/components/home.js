@@ -9,25 +9,31 @@ export default class Home extends Component {
     this.state = {
       tripData: [],
       tripComponents: [],
+      userData: {}
     };
-
+    this.fetchUserData = this.fetchUserData.bind(this);
     this.fetchTrips = this.fetchTrips.bind(this);
   }
 
   componentDidMount() {
+    this.fetchUserData();
     this.fetchTrips();
   }
 
-  componentWillUpdate() {
-    this.fetchTrips();
-  }
+  // componentWillUpdate() {
+  //   this.fetchTrips();
+  // }
 
   fetchTrips() {
     return axios.get(`${config.server}/trips`).then(res => this.setState({ tripData: res.data }));
   }
 
+  fetchUserData() {
+    return axios.get(`${config.server}/user?username=${this.props.username}`).then(res => this.setState({userData: res.data}))
+  }
+
   render() {
-    const tripComponents = this.state.tripData.map(trip => <Trip trip={trip} fetchkey={trip._id} />);
+    const tripComponents = this.state.tripData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData}/>);
     return (<div className="createMap">
       <br />
       {tripComponents}
