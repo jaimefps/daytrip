@@ -52,7 +52,7 @@ export default class TripShow extends Component {
 
   render() {
     return (
-      <div className="panel panel-info tiles">
+      <div className="panel panel-info">
         <div className="panel-heading">
           <h3 className="panel-title">{this.props.trip.name}, {this.props.trip.likes} likes!
             <div className="divider" />
