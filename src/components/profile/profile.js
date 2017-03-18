@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import config from '../../config';
+import Trips from './trips';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -8,11 +9,12 @@ export default class Profile extends Component {
     this.state = {
       router: React.PropTypes.object,
       userInfo: '',
+      currentTab: <div />,
     };
 
+    this.handleClick = this.handleClick.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
     this.getUserInfo();
-    console.log('this.state.userInfo in Profile constructor', this.state.userInfo);
   }
 
   componentWillMount() {
@@ -40,7 +42,17 @@ export default class Profile extends Component {
       console.error(err);
     });
   }
-    // return <div>this is user {this.props.username+"'s"} profile</div>
+
+  handleClick(e) {
+    this.setState({ currentTab: e.target.id });
+  }
+
+  renderChild() {
+    if (this.state.currentTab === 'trips') {
+      return <Trips />;
+    }
+  }
+
   render() {
     return (
       <div className="col-lg-6 col-sm-6">
@@ -55,21 +67,22 @@ export default class Profile extends Component {
         </div>
         <div className="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
           <div className="btn-group" role="group">
-            <button type="button" id="stars" className="btn btn-primary" href="#tab1" data-toggle="tab"><span className="glyphicon glyphicon-star" aria-hidden="true" />
+            <button onClick={this.handleClick} type="button" id="trips" className="btn btn-primary"><span className="glyphicon glyphicon-star" />
               <div className="hidden-xs">Trips</div>
             </button>
           </div>
           <div className="btn-group" role="group">
-            <button type="button" id="favorites" className="btn btn-default" href="#tab2" data-toggle="tab"><span className="glyphicon glyphicon-heart" aria-hidden="true" />
+            <button onClick={this.handleClick} type="button" id="favorites" className="btn btn-default"><span className="glyphicon glyphicon-heart" />
               <div className="hidden-xs">Favorites</div>
             </button>
           </div>
           <div className="btn-group" role="group">
-            <button type="button" id="following" className="btn btn-default" href="#tab3" data-toggle="tab"><span className="glyphicon glyphicon-user" aria-hidden="true" />
+            <button onClick={this.handleClick} type="button" id="friends" className="btn btn-default"><span className="glyphicon glyphicon-user" />
               <div className="hidden-xs">Friends</div>
             </button>
           </div>
         </div>
+        {this.renderChild()}
       </div>
     );
   }
