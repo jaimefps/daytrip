@@ -151,7 +151,7 @@ export default class CreateTrip extends Component {
     const toggle = !this.state.toggle ? 'none' : 'block';
     return (
       <div style={{ maxHeight: '100%', overflow: 'scroll'}} className="col-xs-6 col-xs-offset-6">
-      {this.state.tripName ? <h3 style={{marginTop:'0px'}}>{this.state.tripName}</h3> : ''}
+      {this.state.tripName ? <h1 style={{fontFamily:'lobster'}}>{this.state.tripName}<hr/></h1> : ''}
         <div style={{ display: toggle }} >
           <div className="row">
             <div className="col-xs-4">
@@ -168,7 +168,7 @@ export default class CreateTrip extends Component {
             </div>
           </div>
           <br />
-          <textarea name="tip" className="form-control" placeholder="add your tips" value={this.state.tip} onChange={this.handleChange} />
+          <textarea maxlength="150" name="tip" className="form-control" placeholder="add your tips" value={this.state.tip} onChange={this.handleChange} />
           <br />
           <div className="btn-group">
             <form onSubmit={this.handleAdd} style={{display:'inline-block', marginRight: '5px'}}>

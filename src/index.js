@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory, Route, IndexRoute } from 'react-router';
 
+import '../public/lobster.css';
 import '../public/style.css';
 import '../public/bootstrap/css/bootstrap.css';
 import App from './components/App';

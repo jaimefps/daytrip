@@ -35,13 +35,22 @@ export default class Home extends Component {
   render() {
     const tripComponents = this.state.tripData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData}/>);
     return (
-    <div>
+    <div style={{maxWidth:'1400px', margin: 'auto'}}>
       <div className="col-xs-8">
-        <h3>Trips near San Francisco, CA</h3>
+        <br/>
         {tripComponents}
       </div>
-      <div className="col-xs-4">
-        Other Content Here
+      <br/>
+      <div className="col-xs-3">
+        <div className="panel panel-default">
+  <div className="panel-heading">
+    <h3 className="panel-title">Panel title</h3>
+  </div>
+
+  <div className="panel-body">
+    Panel content
+  </div>
+</div>
       </div>
     </div>);
   }
