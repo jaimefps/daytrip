@@ -187,7 +187,7 @@ export default class CreateTrip extends Component {
     const toggle = this.state.toggle ? 'none' : 'block';
     return (
       <div className="createMap">
-        <div style={{ height: '600px', width: '600px' }} className="col-md-6" id="map" />
+        <div style={{ height: '600px', width: '600px' }} className="col-md-6" id="map"/>
         <DefineTrip toggle={toggle} submit={this.createTrip} />
         {this.renderForm()}
       </div>

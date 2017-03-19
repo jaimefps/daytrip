@@ -49,11 +49,11 @@ export default class TripDetails extends Component {
 
   addMarkers() {
     const icon={
-        path: window.google.maps.SymbolPath.CIRCLE,
-        scale: 8.5,
-        fillColor: "#F00",
-        fillOpacity: 0.4,
-        strokeWeight: 0.4
+      path: window.google.maps.SymbolPath.CIRCLE,
+      scale: 8.5,
+      fillColor: "#F00",
+      fillOpacity: 0.4,
+      strokeWeight: 0.4
     }
     this.state.data.coordinates.map((loc, i) => {
 

@@ -136,7 +136,7 @@ export default class Profile extends Component {
             </button>
           </div>
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="favorites" className={this.state.favoritesTab}><span className="glyphicon glyphicon-heart" />
+            <button onClick={this.handleClick} type="button" id="favorites" className={this.state.favoritesTab}><span className="glyphicon glyphicon-heart"/>
               <div onClick={this.handleClick} id="favorites" className="hidden-xs">Favorites</div>
             </button>
           </div>
