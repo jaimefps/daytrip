@@ -12,6 +12,7 @@ const tripSchema = new Schema({
   },
   locations: Array,
   description: String,
+  coordinates: Array,
   names: Array,
   tips: Array,
   images: Array,
