@@ -59,7 +59,7 @@ export default class TripShow extends Component {
   }
 
   render() {
-    const send = `/trip/${this.props.trip.tripName}`
+    const send = `/trip/${this.props.trip._id}`
     return (
       <div className="panel panel-info">
         <div className="panel-heading">
