@@ -62,7 +62,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className={this.props.location.pathname === '/signin' || this.props.location.pathname === '/signup' ? 'landing' : 'app'}>
+      <div className="app">
         {this.renderHeader()}
         { renderChildren(this.props, this.state, this) }
       </div>
