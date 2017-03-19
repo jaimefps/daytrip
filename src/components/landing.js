@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
+import Signin from './authentication/signin'
 
 export default class Landing extends Component {
   render() {
@@ -23,10 +24,8 @@ export default class Landing extends Component {
           </div>
         </div>
       </nav>
-
-        <div className="landing">          
-        </div>
-        <div className="logo" > </div>
+        <div className="landing"/>         
+        <div className="logo" />
       
         </div>
       

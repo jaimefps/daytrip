@@ -61,8 +61,9 @@ class App extends Component {
   }
 
   render() {
+    const bgClass = this.props.location.pathname === '/signup' || this.props.location.pathname === '/signin' ? 'landing' : 'app'
     return (
-      <div className="app">
+      <div className={bgClass} style={{zIndex:'0'}}>
         {this.renderHeader()}
         { renderChildren(this.props, this.state, this) }
       </div>

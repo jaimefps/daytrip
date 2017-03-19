@@ -151,7 +151,7 @@ export default class CreateTrip extends Component {
     const toggle = !this.state.toggle ? 'none' : 'block';
     return (
       <div style={{ maxHeight: '100%', overflow: 'scroll' }} className="col-xs-6">
-      {this.state.tripName ? <h3>{this.state.tripName}</h3> : ''}
+      {this.state.tripName ? <h3 style={{marginTop:'0px'}}>{this.state.tripName}</h3> : ''}
         <div style={{ display: toggle }} >
           <div className="row">
             <div className="col-md-4">
