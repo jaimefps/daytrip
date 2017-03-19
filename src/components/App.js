@@ -56,13 +56,13 @@ class App extends Component {
 
   renderHeader() {
     return this.props.location.pathname !== '/' ?
-      <Header authenticated={this.state.authenticated} username={this.state.username} pathname={this.props.location.pathname}/> :
+      <Header authenticated={this.state.authenticated} username={this.state.username} pathname={this.props.location.pathname} /> :
     null;
   }
 
   render() {
     return (
-      <div className={this.props.location.pathname === '/signin' || this.props.location.pathname === '/signup' ? "landing" : ""}>
+      <div className={this.props.location.pathname === '/signin' || this.props.location.pathname === '/signup' ? 'landing' : ''}>
         {this.renderHeader()}
         { renderChildren(this.props, this.state, this) }
       </div>

@@ -13,20 +13,20 @@ export default class TripShow extends Component {
       images: [],
     };
     this.handleClick = this.handleClick.bind(this);
-    this.updateRoute = this.updateRoute.bind(this); 
+    this.updateRoute = this.updateRoute.bind(this);
   }
 
   componentDidMount() {
-    const { locations, images } = this.props.trip
+    const { locations, images } = this.props.trip;
     this.setState({ locations, images });
   }
 
 
   updateRoute(route, action) {
-    const { username, trip:{_id, likes, likesByUsers} } = this.props;
-    let del = (action === 'delete') ?  true : false
+    const { username, trip: { _id, likes, likesByUsers } } = this.props;
+    const del = (action === 'delete');
     axios.put(`${config.server}/${route}`, { _id, likes, username, del, likesByUsers }).then((res) => {
-      this.props.fetchUserData() 
+      this.props.fetchUserData();
     });
   }
 
@@ -40,16 +40,17 @@ export default class TripShow extends Component {
       this.props.trip.likes -= 1;
       _.pull(this.props.trip.likesByUsers, this.props.username)
       this.updateRoute('trips', 'delete');
-    } else if (e.target.name === 'favorite'){
-      const action = this.renderFavoritesButtonCaption() === 'Remove from favorites' ? 'delete' : null
+    } else if (e.target.name === 'favorite') {
+      const action = this.renderFavoritesButtonCaption() === 'Remove from favorites' ? 'delete' : null;
       this.updateRoute('user', action);
     }
   }
 
   renderFavoritesButtonCaption() {
-    const {userData, trip} = this.props; 
+    const { userData, trip } = this.props;
     return _.includes(userData.favorites, trip._id) ? 'Remove from favorites' : 'Add to favorites';
   }
+
 
   renderLikesButtonCaption(name) {
     const {trip, username} = this.props;
@@ -71,7 +72,7 @@ export default class TripShow extends Component {
         </div>
         <div className="panel-body">
           <div className="col-md-3">
-            <img src={this.state.images[0]} alt='' />
+            <img src={this.state.images[0]} alt="" />
           </div>
           <div className="col-md-9" style={{ wordWrap: 'break-word' }}>{this.props.trip.description}</div>
         </div>
