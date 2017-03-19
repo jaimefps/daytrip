@@ -39,17 +39,32 @@ export default class TripDetails extends Component {
     });
   }
 
+  componentWillUnmount() {
+    window.google = null;
+  }
+
   addMarkers() {
-    this.state.data.coordinates.map(loc => {
-        var marker = new window.google.maps.Marker({
+    console.log(this.state.data)
+    this.state.data.coordinates.map((loc, i) => {
+      var contentString = `<div id="content"><div id="siteNotice"></div>
+      <h3 id="firstHeading" class="firstHeading">${this.state.data.names[i]}</h3>
+      <div id="bodyContent"><p>
+      <p><b>Address: </b> ${this.state.data.locations[i]}</p>
+      <b>Tips: </b>${this.state.data.tips[i]}</p></div></div>`;
+      var infowindow = new window.google.maps.InfoWindow({ content: contentString });
+      var marker = new window.google.maps.Marker({
         position: { lat:loc[0], lng:loc[1] },
         map: this.map,
         title: this.state.locationName,
         animation: window.google.maps.Animation.DROP
       });
-    var path = this.poly.getPath();
-    path.push({ lat:() => loc[0], lng:() => loc[1] })
+      marker.addListener('click', function() {
+        infowindow.open(this.map, marker);
+      });
+      var path = this.poly.getPath();
+      path.push({ lat:() => loc[0], lng:() => loc[1] })
     })
+
   }
 
 
