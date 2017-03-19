@@ -7,15 +7,18 @@ import Friends from './friends';
 import _ from 'lodash';
 
 export default class Profile extends Component {
+  static contextTypes = {
+      router: React.PropTypes.object
+  }
   constructor(props) {
     super(props);
     this.state = {
-      router: React.PropTypes.object,
       userInfo: '',
       currentTab: <div />,
       tripsTab: 'btn btn-primary',
       favoritesTab: 'btn btn-default',
       friendsTab: 'btn btn-default',
+      tripData: []
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -30,13 +33,13 @@ export default class Profile extends Component {
 
   componentWillMount() {
     if (this.props.username !== this.props.params.username) {
-      this.context.router.push('/');
+      this.context.router.push('/home');
     }
   }
 
   componentWillUpdate(nextProps) {
     if (this.props.username !== this.props.params.username) {
-      this.context.router.push('/');
+      this.context.router.push('/home');
     }
   }
 
@@ -84,20 +87,18 @@ export default class Profile extends Component {
 
   renderChild() {
     if (this.state.currentTab === 'trips') {
-      const elements = this.state.tripData.filter((trip) => {
+      return this.state.tripData.filter((trip) => {
         if (trip.username === this.props.username) {
           return trip;
         }
-      });
-      return elements.map(trip => <Trips trip={trip} />);
+      }).map(trip => <Trips trip={trip} key={trip._id}/>);
     }
     if (this.state.currentTab === 'favorites') {
-      const elements = this.state.tripData.filter((trip) => {
+      return this.state.tripData.filter((trip) => {
         if (_.includes(this.state.userInfo.favorites, trip._id)) {
           return trip;
         }
-      });
-      return elements.map(favorite => <Favorites favorite={favorite} />);
+      }).map(favorite => <Favorites favorite={favorite} key={favorite._id}/>);
     }
     if (this.state.currentTab === 'friends') {
       return <Friends />;
@@ -106,7 +107,7 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <div className="col-lg-6 col-sm-6">
+      <div className="col-lg-6 col-sm-6 col-md-offset-3">
         <div className="card hovercard">
           <div className="card-background">
             <img className="card-bkimg" alt="" src="../../../public/bg.jpg" />
