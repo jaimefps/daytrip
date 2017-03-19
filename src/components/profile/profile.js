@@ -119,7 +119,7 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <div className="col-lg-6 col-sm-6 col-md-offset-3">
+      <div className="col-xs-6 col-xs-offset-3" style={{overflowY: 'scroll'}}>
         <div className="card hovercard">
           <div className="card-background">
             <img className="card-bkimg" alt="" src="../../../public/bg.jpg" />

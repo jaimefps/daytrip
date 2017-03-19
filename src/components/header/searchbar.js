@@ -19,12 +19,17 @@ export default class Searchbar extends Component {
 
   render() {
     return (
-      <form  className="navbar-form navbar-left"  onSubmit={this.handleSubmit}>
+      <form className="navbar-form" style={{display: 'inline-block'}}>
         <div className="form-group">
-          <input type="text" className="form-control" placeholder="Search" value={this.state.term} onChange={this.handleChange}/>
+          <div className="input-group">
+ 
+            <input className="form-control" placeholder="Search" type="text" />
+            <span className="input-group-addon"><span className="glyphicon glyphicon-search"></span> </span>
+          </div>
         </div>
-        <button type="submit" className="btn btn-default">Submit</button>
       </form>
     )
   }
 }
+
+ 

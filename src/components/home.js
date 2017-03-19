@@ -34,9 +34,15 @@ export default class Home extends Component {
 
   render() {
     const tripComponents = this.state.tripData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData}/>);
-    return (<div className="createMap">
-      <br />
-      {tripComponents}
+    return (
+    <div>
+      <div className="col-xs-8">
+        <h3>Trips near San Francisco, CA</h3>
+        {tripComponents}
+      </div>
+      <div className="col-xs-4">
+        Other Content Here
+      </div>
     </div>);
   }
 }

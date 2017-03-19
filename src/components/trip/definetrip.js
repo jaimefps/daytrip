@@ -26,7 +26,7 @@ export default class DefineTrip extends Component {
 
   render() {
     return (
-      <form style={{ display: this.props.toggle }} className="form-group col-md-6" onSubmit={this.handleSubmit}>
+      <form style={{ display: this.props.toggle }} className="form-group col-xs-6 col-xs-offset-6" onSubmit={this.handleSubmit}>
         <input value={this.state.name} name="name" onChange={this.handleChange} type="text" className="form-control" placeholder=" Name your trip " />
         <br />
         <textarea name="description" className="form-control" placeholder=" Add a description " value={this.state.description} onChange={this.handleChange} />

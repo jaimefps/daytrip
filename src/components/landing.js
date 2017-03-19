@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Signin from './authentication/signin'
 
 export default class Landing extends Component {
   render() {
     return (
       <div>
-    <nav className="navbar navbar-light">
+    <nav className="navbar navbar-light navbar-fixed-top">
         <div className="container-fluid">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
