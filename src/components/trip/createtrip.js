@@ -14,6 +14,7 @@ export default class CreateTrip extends Component {
       names: [],
       tips: [],
       coordinate: [],
+      coordinates: [],
       place: {},
       images: [],
       location: '',
@@ -49,15 +50,25 @@ export default class CreateTrip extends Component {
           this.setState({ coordinate: [place[0].geometry.location.lat(), place[0].geometry.location.lng()] });
           this.setState({ location: place[0].formatted_address, place });
         });
+        this.poly = new window.google.maps.Polyline({
+          strokeColor: '#000000',
+          icons: [{
+            icon: { path: window.google.maps.SymbolPath.FORWARD_CLOSED_ARROW },
+            offset: '100%'
+          }],
+          strokeOpacity: 1.0,
+          strokeWeight: 3
+        });
+        this.poly.setMap(this.map);
       },
     });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { tripName, locations, tips, names, description, images } = this.state;
+    const { tripName, locations, tips, names, description, images, coordinates } = this.state;
     const username = this.props.username;
-    axios.post(`${config.server}/trips`, { tripName, username, description, images, locations, tips, names }).then((res) => {
+    axios.post(`${config.server}/trips`, { coordinates, tripName, username, description, images, locations, tips, names }).then((res) => {
       this.setState({ tripName: '' });
     });
     browserHistory.push('/home');
@@ -76,6 +87,8 @@ export default class CreateTrip extends Component {
       title: this.state.locationName,
       animation: window.google.maps.Animation.DROP
     });
+    var path = this.poly.getPath();
+    path.push({ lat:() => lat, lng:() => lng })
     marker.addListener('click', function() {
       infowindow.open(this.map, marker);
     });
@@ -93,14 +106,16 @@ export default class CreateTrip extends Component {
 
   handleAdd(e) {
     e.preventDefault();
-    const { location, locationName, tip, place } = this.state;
-    const { locations, names, tips, images } = this.state;
-    const image = place[0].photos ? place[0].photos[0].getUrl({ maxWidth: 200, maxHeight: 200 }) : 'https://lh5.googleusercontent.com/-j52sfSDXIK8/V7O0JNtse6I/AAAAAAAAABE/xfYLPW9Eu_4U7JESHATtv26-jZMvpKgzQCLIB/w130-h130-k/' ;
+    const { 
+      location, locationName, names, tip, tips, place, coordinate, coordinates, locations, images 
+    } = this.state;
+    const image = place[0].photos ? place[0].photos[0].getUrl({ maxWidth: 130, maxHeight: 130 }) : 'https://lh5.googleusercontent.com/-j52sfSDXIK8/V7O0JNtse6I/AAAAAAAAABE/xfYLPW9Eu_4U7JESHATtv26-jZMvpKgzQCLIB/w130-h130-k/' ;
     this.setState({
       locations: [...locations, location],
       names: [...names, locationName],
       tips: [...tips, tip],
       images: [...images, image],
+      coordinates: [...coordinates, coordinate]
     });
     this.setState({
       location: '',

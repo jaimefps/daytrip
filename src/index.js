@@ -13,6 +13,7 @@ import Home from './components/home';
 import Profile from './components/profile/profile'
 import RequireAuth from './components/authentication/requireauth';
 import CreateTrip from './components/trip/createtrip'
+import TripDetails from './components/home/trip-details'
 
 var token = localStorage.getItem('token');
 var auth = token ? true : false;
@@ -24,6 +25,7 @@ ReactDOM.render(
       <IndexRoute component={Landing} />
       <Route path="signin" component={Signin} />
       <Route path="signup" component={Signup} />
+      <Route path="trip/:tripName" component={TripDetails} />
       <Route path="home" component={RequireAuth(Home)} />
       <Route path="signout" component={Signout} />
       <Route path="profile/:username" component={RequireAuth(Profile)} />

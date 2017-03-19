@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import config from '../../config';
-import _ from 'lodash'
+import _ from 'lodash';
+import { Link } from 'react-router';
 
 export default class TripShow extends Component {
   constructor(props) {
@@ -58,10 +59,11 @@ export default class TripShow extends Component {
   }
 
   render() {
+    const send = `/trip/${this.props.trip.tripName}`
     return (
       <div className="panel panel-info">
         <div className="panel-heading">
-          <h3 className="panel-title">{this.props.trip.tripName}, {this.props.trip.likes} likes!
+          <h3 className="panel-title"><Link to={send}>{this.props.trip.tripName}</Link>, {this.props.trip.likes} likes!
             <div className="divider" />
             <button name="upvote" onClick={this.handleClick}>{this.renderLikesButtonCaption()}</button>
             <div className="divider" />
