@@ -150,7 +150,8 @@ export default class CreateTrip extends Component {
   renderForm() {
     const toggle = !this.state.toggle ? 'none' : 'block';
     return (
-      <div style={{ maxHeight: '600px', overflow: 'scroll' }} className="col-md-6">
+      <div style={{ maxHeight: '100%', overflow: 'scroll' }} className="col-xs-6">
+      {this.state.tripName ? <h3>{this.state.tripName}</h3> : ''}
         <div style={{ display: toggle }} >
           <div className="row">
             <div className="col-md-4">
@@ -186,8 +187,8 @@ export default class CreateTrip extends Component {
   render() {
     const toggle = this.state.toggle ? 'none' : 'block';
     return (
-      <div className="createMap">
-        <div style={{ height: '600px', width: '600px' }} className="col-md-6" id="map"/>
+      <div className="createMap row-fluid" style={{height: '100%', width: '100%', position:'relative'}}>
+        <div style={{ height: '100%', width: '50%', position:'absolute' }} className="col-xs-6 col-xs-offset-6" id="map"/>
         <DefineTrip toggle={toggle} submit={this.createTrip} />
         {this.renderForm()}
       </div>
