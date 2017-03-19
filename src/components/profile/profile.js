@@ -25,6 +25,7 @@ export default class Profile extends Component {
 
   componentDidMount() {
     this.fetchTrips();
+    this.setState({ currentTab: 'trips' });
   }
 
   componentWillMount() {
@@ -82,10 +83,13 @@ export default class Profile extends Component {
   }
 
   renderChild() {
-    console.log(this.state.userInfo);
     if (this.state.currentTab === 'trips') {
-      // const userTrips = this.state.userInfo.trips.map(trip => <Trips trip={trip} fetchkey={trip._id} />);
-      return <Trips />;
+      const elements = this.state.tripData.filter((trip) => {
+        if (trip.username === this.props.username) {
+          return trip;
+        }
+      });
+      return elements.map(trip => <Trips trip={trip} />);
     }
     if (this.state.currentTab === 'favorites') {
       const elements = this.state.tripData.filter((trip) => {

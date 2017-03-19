@@ -13,20 +13,20 @@ export default class TripShow extends Component {
       images: [],
     };
     this.handleClick = this.handleClick.bind(this);
-    this.updateRoute = this.updateRoute.bind(this); 
+    this.updateRoute = this.updateRoute.bind(this);
   }
 
   componentDidMount() {
-    const { locations, images } = this.props.trip
+    const { locations, images } = this.props.trip;
     this.setState({ locations, images });
   }
 
 
   updateRoute(route, action) {
-    const { username, trip:{_id, likes, likesByUsers} } = this.props;
-    let del = (action === 'delete') ?  true : false
+    const { username, trip: { _id, likes, likesByUsers } } = this.props;
+    const del = (action === 'delete');
     axios.put(`${config.server}/${route}`, { _id, likes, username, del, likesByUsers }).then((res) => {
-      this.props.fetchUserData() 
+      this.props.fetchUserData();
     });
   }
 
@@ -35,31 +35,31 @@ export default class TripShow extends Component {
     if (e.target.name === 'upvote') {
       this.props.trip.likes += 1;
       this.props.trip.likesByUsers.push(this.props.username);
-      e.target.name = 'downvote'
+      e.target.name = 'downvote';
       this.updateRoute('trips');
     } else if (e.target.name === 'downvote') {
       this.props.trip.likes -= 1;
-      _.pull(this.props.trip.likesByUsers, this.props.username)
-      e.target.name = 'upvote'
+      _.pull(this.props.trip.likesByUsers, this.props.username);
+      e.target.name = 'upvote';
       this.updateRoute('trips', 'delete');
-    } else if (e.target.name === 'favorite'){
-      const action = this.renderFavoritesButtonCaption() === 'Remove from favorites' ? 'delete' : null
+    } else if (e.target.name === 'favorite') {
+      const action = this.renderFavoritesButtonCaption() === 'Remove from favorites' ? 'delete' : null;
       this.updateRoute('user', action);
     }
   }
 
   renderFavoritesButtonCaption() {
-    const {userData, trip} = this.props; 
+    const { userData, trip } = this.props;
     return _.includes(userData.favorites, trip._id) ? 'Remove from favorites' : 'Add to favorites';
   }
 
   renderLikesButtonCaption() {
-    const {trip, username} = this.props;
-    return _.includes(trip.likesByUsers, username) ? 'Remove Like' : 'Add Like'
+    const { trip, username } = this.props;
+    return _.includes(trip.likesByUsers, username) ? 'Remove Like' : 'Add Like';
   }
 
   render() {
-    const send = `/trip/${this.props.trip._id}`
+    const send = `/trip/${this.props.trip._id}`;
     return (
       <div className="panel panel-info">
         <div className="panel-heading">
@@ -72,7 +72,7 @@ export default class TripShow extends Component {
         </div>
         <div className="panel-body">
           <div className="col-md-3">
-            <img src={this.state.images[0]} alt='' />
+            <img src={this.state.images[0]} alt="" />
           </div>
           <div className="col-md-9" style={{ wordWrap: 'break-word' }}>{this.props.trip.description}</div>
         </div>
