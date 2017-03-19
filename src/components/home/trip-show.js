@@ -32,15 +32,13 @@ export default class TripShow extends Component {
 
 
   handleClick(e) {
-    if (e.target.name === 'upvote') {
+    if (e.target.name === 'Add Like') {
       this.props.trip.likes += 1;
       this.props.trip.likesByUsers.push(this.props.username);
-      e.target.name = 'downvote'
       this.updateRoute('trips');
-    } else if (e.target.name === 'downvote') {
+    } else if (e.target.name === 'Remove Like') {
       this.props.trip.likes -= 1;
       _.pull(this.props.trip.likesByUsers, this.props.username)
-      e.target.name = 'upvote'
       this.updateRoute('trips', 'delete');
     } else if (e.target.name === 'favorite'){
       const action = this.renderFavoritesButtonCaption() === 'Remove from favorites' ? 'delete' : null
@@ -53,19 +51,20 @@ export default class TripShow extends Component {
     return _.includes(userData.favorites, trip._id) ? 'Remove from favorites' : 'Add to favorites';
   }
 
-  renderLikesButtonCaption() {
+  renderLikesButtonCaption(name) {
     const {trip, username} = this.props;
     return _.includes(trip.likesByUsers, username) ? 'Remove Like' : 'Add Like'
   }
 
   render() {
+    const {trip, username} = this.props;
     const send = `/trip/${this.props.trip._id}`
     return (
       <div className="panel panel-info">
         <div className="panel-heading">
           <h3 className="panel-title"><Link to={send}>{this.props.trip.tripName}</Link>, {this.props.trip.likes} likes!
             <div className="divider" />
-            <button name="upvote" onClick={this.handleClick}>{this.renderLikesButtonCaption()}</button>
+            <button name={this.renderLikesButtonCaption()} onClick={this.handleClick}>{this.renderLikesButtonCaption()}</button>
             <div className="divider" />
             <button name="favorite" onClick={this.handleClick}>{this.renderFavoritesButtonCaption()}</button>
           </h3>
