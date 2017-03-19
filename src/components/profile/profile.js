@@ -82,7 +82,6 @@ export default class Profile extends Component {
   }
 
   renderChild() {
-    console.log(this.state.userInfo);
     if (this.state.currentTab === 'trips') {
       // const userTrips = this.state.userInfo.trips.map(trip => <Trips trip={trip} fetchkey={trip._id} />);
       return <Trips />;
@@ -115,17 +114,17 @@ export default class Profile extends Component {
         <div className="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
           <div className="btn-group" role="group">
             <button onClick={this.handleClick} type="button" id="trips" className={this.state.tripsTab}><span className="glyphicon glyphicon-star" />
-              <div className="hidden-xs">Trips</div>
+              <div onClick={this.handleClick} id="trips" className="hidden-xs">Trips</div>
             </button>
           </div>
           <div className="btn-group" role="group">
             <button onClick={this.handleClick} type="button" id="favorites" className={this.state.favoritesTab}><span className="glyphicon glyphicon-heart" />
-              <div className="hidden-xs">Favorites</div>
+              <div onClick={this.handleClick} id="favorites" className="hidden-xs">Favorites</div>
             </button>
           </div>
           <div className="btn-group" role="group">
             <button onClick={this.handleClick} type="button" id="friends" className={this.state.friendsTab}><span className="glyphicon glyphicon-user" />
-              <div className="hidden-xs">Friends</div>
+              <div className="hidden-xs" onClick={this.handleClick} id="friends">Friends</div>
             </button>
           </div>
         </div>
