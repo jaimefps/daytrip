@@ -114,7 +114,7 @@ export default class Profile extends Component {
         </div>
         <div className="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="trips" className={this.state.tripsTab}><span className="glyphicon glyphicon-star" />
+            <button onClick={this.handleClick} type="button" id="trips" className={this.state.tripsTab}><span className="glyphicon glyphicon-map-marker" />
               <div className="hidden-xs">Trips</div>
             </button>
           </div>
