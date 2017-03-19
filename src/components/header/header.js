@@ -20,8 +20,10 @@ export default class Header extends Component {
   }
 
   render() {
+    const headerClass = this.props.pathname === '/signin' || this.props.pathname === '/signup' ? 'navbar-light' : 'navbar-default'
     return (
-      <nav role="navigation" className={'navbar tiles' + this.props.pathname === '/signin' || this.props.pathname === '/signup' ? 'navbar-light' : 'navbar-default'}>
+      <div>
+      <nav role="navigation" className={'navbar tiles ' + headerClass} style={{zIndex: '1000'}}>
         <div className="container-fluid">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -30,7 +32,7 @@ export default class Header extends Component {
               <span className="icon-bar" />
               <span className="icon-bar" />
             </button>
-            <Link to="/home" className="navbar-brand">Day Trip</Link>
+            {headerClass==='navbar-default'?<Link to="/home" className="navbar-brand">Day Trip</Link>:''}
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav" />
@@ -40,6 +42,8 @@ export default class Header extends Component {
           </div>
         </div>
       </nav>
+      {headerClass==='navbar-light'?<div className="logo" />:''}
+      </div>
     );
   }
 }
