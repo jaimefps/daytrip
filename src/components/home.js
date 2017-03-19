@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import config from '../config';
 import Trip from './home/trip-show';
+import Weather from './home/weather';
 
 export default class Home extends Component {
   constructor(props) {
@@ -9,15 +10,18 @@ export default class Home extends Component {
     this.state = {
       tripData: [],
       tripComponents: [],
-      userData: {}
+      userData: {},
+      weatherData:[],
     };
     this.fetchUserData = this.fetchUserData.bind(this);
     this.fetchTrips = this.fetchTrips.bind(this);
+    this.fetchWeatherData = this.fetchWeatherData.bind(this);
   }
 
   componentDidMount() {
     this.fetchUserData();
     this.fetchTrips();
+    this.fetchWeatherData();
   }
 
   fetchTrips() {
@@ -32,6 +36,12 @@ export default class Home extends Component {
     }).then(res => this.setState({userData: res.data}))
   }
 
+  fetchWeatherData() {
+    axios.get(`${config.server}/weather`, {
+      headers:{ authorization: localStorage.getItem('token') }
+    }).then(res => this.setState({ weatherData: res.data }))
+  }
+
   render() {
     const tripComponents = this.state.tripData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData}/>);
     return (
@@ -41,16 +51,8 @@ export default class Home extends Component {
         {tripComponents}
       </div>
       <br/>
-      <div className="col-xs-3">
-        <div className="panel panel-default">
-  <div className="panel-heading">
-    <h3 className="panel-title">Panel title</h3>
-  </div>
-
-  <div className="panel-body">
-    Panel content
-  </div>
-</div>
+      <div className="col-xs-4">
+        <Weather data={this.state.weatherData}/>
       </div>
     </div>);
   }
