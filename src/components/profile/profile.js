@@ -4,6 +4,7 @@ import config from '../../config';
 import Trips from './trips';
 import Favorites from './favorites';
 import Friends from './friends';
+import _ from 'lodash';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -20,6 +21,10 @@ export default class Profile extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
     this.getUserInfo();
+  }
+
+  componentDidMount() {
+    this.fetchTrips();
   }
 
   componentWillMount() {
@@ -76,15 +81,19 @@ export default class Profile extends Component {
     }
   }
 
-
   renderChild() {
-    console.log(this.state.userInfo); 
+    console.log(this.state.userInfo);
     if (this.state.currentTab === 'trips') {
       // const userTrips = this.state.userInfo.trips.map(trip => <Trips trip={trip} fetchkey={trip._id} />);
       return <Trips />;
     }
     if (this.state.currentTab === 'favorites') {
-      return <Favorites />;
+      const elements = this.state.tripData.filter((trip) => {
+        if (_.includes(this.state.userInfo.favorites, trip._id)) {
+          return trip;
+        }
+      });
+      return elements.map(favorite => <Favorites favorite={favorite} />);
     }
     if (this.state.currentTab === 'friends') {
       return <Friends />;
@@ -120,6 +129,7 @@ export default class Profile extends Component {
             </button>
           </div>
         </div>
+        <br />
         {this.renderChild()}
       </div>
     );
