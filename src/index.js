@@ -25,7 +25,7 @@ ReactDOM.render(
       <IndexRoute component={Landing} />
       <Route path="signin" component={Signin} />
       <Route path="signup" component={Signup} />
-      <Route path="trip/:tripName" component={TripDetails} />
+      <Route path="trip/:id" component={TripDetails} />
       <Route path="home" component={RequireAuth(Home)} />
       <Route path="signout" component={Signout} />
       <Route path="profile/:username" component={RequireAuth(Profile)} />

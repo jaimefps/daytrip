@@ -11,7 +11,7 @@ module.exports = function (app) {
   app.post('/signup', Authentication.signup);
   app.post('/signin', requireSignin, Authentication.signin);
   app.get('/trips/:username' /* requireSignin*/, tripsHandler.getTrips);
-  app.get('/trips/' /* requireSignin*/, tripsHandler.getTrips);
+  app.get('/trips' /* requireSignin*/, tripsHandler.getTrips);
   app.post('/trips' /* requireSignin*/, tripsHandler.postTrips);
   app.put('/trips', tripsHandler.putTrips);
   app.get('/user', userHandler.getUserInfo);
