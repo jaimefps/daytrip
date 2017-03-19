@@ -13,7 +13,7 @@ export default class TripDetails extends Component {
   }
 
   fetchData() {
-    return axios.get(`${config.server}/trips?id=${this.props.params.id}`).then(res => this.setState({ data: res.data[0] }))
+    return axios.get(`${config.server}/trips?id=${this.props.params.id}`).then(res => this.setState({ data: res.data }))
   }
 
   componentDidMount() {
