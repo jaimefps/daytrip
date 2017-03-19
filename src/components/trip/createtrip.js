@@ -38,7 +38,7 @@ export default class CreateTrip extends Component {
           center: { lat: 37.769, lng: -122.446 },
           zoom: 12,
         });
-
+        this.bounds = new window.google.maps.LatLngBounds();
         const input = document.getElementById('searchmap');
         this.searchBox = new window.google.maps.places.SearchBox(input);
         this.map.addListener('bounds_changed', () => {
@@ -64,6 +64,10 @@ export default class CreateTrip extends Component {
     });
   }
 
+  componentWillUnmount() {
+    window.google = null;
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const { tripName, locations, tips, names, description, images, coordinates } = this.state;
@@ -77,15 +81,23 @@ export default class CreateTrip extends Component {
   }
 
   addMarker(lat, lng) {
+    const icon={
+      path: window.google.maps.SymbolPath.CIRCLE,
+      scale: 8.5,
+      fillColor: "#F00",
+      fillOpacity: 0.4,
+      strokeWeight: 0.4
+    }
     var contentString = `<div id="content"><div id="siteNotice"></div>
-            <h3 id="firstHeading" class="firstHeading">${this.state.locationName}</h3>
-            <div id="bodyContent"><p>
-            <p><b>Address: </b> ${this.state.location}</p>
-            <b>Tips: </b>${this.state.tip}</p></div></div>`;
+      <h3 id="firstHeading" class="firstHeading">${this.state.locationName}</h3>
+      <div id="bodyContent"><p>
+      <p><b>Address: </b> ${this.state.location}</p>
+      <b>Tips: </b>${this.state.tip}</p></div></div>`;
     var infowindow = new window.google.maps.InfoWindow({ content: contentString });
     var marker = new window.google.maps.Marker({
       position: { lat, lng },
       map: this.map,
+      icon,
       title: this.state.locationName,
       animation: window.google.maps.Animation.DROP
     });
@@ -94,6 +106,10 @@ export default class CreateTrip extends Component {
     marker.addListener('click', function() {
       infowindow.open(this.map, marker);
     });
+    this.bounds.extend(marker.position)
+    this.map.fitBounds(this.bounds)
+    var zoom = this.map.getZoom();
+    this.map.setZoom(zoom > 14 ? 14 : zoom);
   }
 
   renderLocations() {
@@ -134,7 +150,8 @@ export default class CreateTrip extends Component {
   renderForm() {
     const toggle = !this.state.toggle ? 'none' : 'block';
     return (
-      <div style={{ maxHeight: '600px', overflow: 'scroll' }} className="col-md-6">
+      <div style={{ maxHeight: '100%', overflow: 'scroll' }} className="col-xs-6">
+      {this.state.tripName ? <h3>{this.state.tripName}</h3> : ''}
         <div style={{ display: toggle }} >
           <div className="row">
             <div className="col-md-4">
@@ -170,8 +187,8 @@ export default class CreateTrip extends Component {
   render() {
     const toggle = this.state.toggle ? 'none' : 'block';
     return (
-      <div className="createMap">
-        <div style={{ height: '600px', width: '600px' }} className="col-md-6" id="map" />
+      <div className="createMap row-fluid" style={{height: '100%', width: '100%', position:'relative'}}>
+        <div style={{ height: '100%', width: '50%', position:'absolute' }} className="col-xs-6 col-xs-offset-6" id="map"/>
         <DefineTrip toggle={toggle} submit={this.createTrip} />
         {this.renderForm()}
       </div>

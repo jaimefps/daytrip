@@ -10,6 +10,7 @@ export default class Profile extends Component {
   static contextTypes = {
       router: React.PropTypes.object
   }
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -108,11 +109,8 @@ export default class Profile extends Component {
       return this.state.userTrips.map(trip => <Trips trip={trip} key={trip._id}/>);
     }
     if (this.state.currentTab === 'favorites') {
-      return this.state.tripData.filter((trip) => {
-        if (_.includes(this.state.userInfo.favorites, trip._id)) {
-          return trip;
-        }
-      }).map(favorite => <Favorites favorite={favorite} key={favorite._id}/>);
+      return this.state.tripData.filter(trip => _.includes(this.state.userInfo.favorites, trip._id))
+      .map(favorite => <Favorites favorite={favorite} key={favorite._id}/>);
     }
     if (this.state.currentTab === 'friends') {
       return <Friends />;
@@ -138,7 +136,7 @@ export default class Profile extends Component {
             </button>
           </div>
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="favorites" className={this.state.favoritesTab}><span className="glyphicon glyphicon-heart" />
+            <button onClick={this.handleClick} type="button" id="favorites" className={this.state.favoritesTab}><span className="glyphicon glyphicon-heart"/>
               <div onClick={this.handleClick} id="favorites" className="hidden-xs">Favorites</div>
             </button>
           </div>
