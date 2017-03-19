@@ -25,7 +25,9 @@ export default class TripShow extends Component {
   updateRoute(route, action) {
     const { username, trip: { _id, likes, likesByUsers } } = this.props;
     const del = (action === 'delete');
-    axios.put(`${config.server}/${route}`, { _id, likes, username, del, likesByUsers }).then((res) => {
+    axios.put(`${config.server}/${route}`, { _id, likes, username, del, likesByUsers }, {
+      headers:{ authorization: localStorage.getItem('token') }
+    }).then((res) => {
       this.props.fetchUserData();
     });
   }
@@ -52,7 +54,7 @@ export default class TripShow extends Component {
   }
 
 
-  renderLikesButtonCaption(name) {
+  renderLikesButtonCaption() {
     const {trip, username} = this.props;
     return _.includes(trip.likesByUsers, username) ? 'Remove Like' : 'Add Like'
   }

@@ -13,7 +13,7 @@ exports.getUserInfo = function (req, res) {
 };
 
 
-exports.putUserInfo = function (req, res) {
+exports.updateUserInfo = function (req, res) {
   const { username, _id, del } = req.body;
   User.findOne({username}).then(user => {
     if (del) {

@@ -18,7 +18,8 @@ export default class Profile extends Component {
       tripsTab: 'btn btn-primary',
       favoritesTab: 'btn btn-default',
       friendsTab: 'btn btn-default',
-      tripData: []
+      tripData: [],
+      userTrips:[]
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -44,11 +45,29 @@ export default class Profile extends Component {
   }
 
   fetchTrips() {
-    return axios.get(`${config.server}/trips`).then(res => this.setState({ tripData: res.data }));
+    return axios.get(`${config.server}/trips`, {
+      headers:{ authorization: localStorage.getItem('token') }
+    }).then(res => this.setState({ tripData: res.data }))
+    .then(() => axios.get(`${config.server}/trips`, { 
+      params: { 
+        username: this.props.username 
+      }, 
+      headers:{ 
+        authorization: localStorage.getItem('token') 
+      } 
+    }))
+    .then(res => this.setState({ userTrips: res.data }))
   }
 
   getUserInfo() {
-    return axios.get(`${config.server}/user`, { params: { username: this.props.username } })
+    return axios.get(`${config.server}/user`, { 
+      params: { 
+        username: this.props.username 
+      }, 
+      headers:{ 
+        authorization: localStorage.getItem('token') 
+      } 
+    })
     .then((res) => {
       this.setState({ userInfo: res.data });
     })
@@ -58,7 +77,6 @@ export default class Profile extends Component {
   }
 
   handleClick(e) {
-    // this.setState({ currentTab: e.target.id });
     if (e.target.id === 'trips') {
       this.setState({
         currentTab: e.target.id,
@@ -87,11 +105,7 @@ export default class Profile extends Component {
 
   renderChild() {
     if (this.state.currentTab === 'trips') {
-      return this.state.tripData.filter((trip) => {
-        if (trip.username === this.props.username) {
-          return trip;
-        }
-      }).map(trip => <Trips trip={trip} key={trip._id}/>);
+      return this.state.userTrips.map(trip => <Trips trip={trip} key={trip._id}/>);
     }
     if (this.state.currentTab === 'favorites') {
       return this.state.tripData.filter((trip) => {
