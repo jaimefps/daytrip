@@ -66,6 +66,7 @@ class App extends Component {
       <div className={bgClass} style={{zIndex:'0'}}>
         {this.renderHeader()}
         { renderChildren(this.props, this.state, this) }
+        
       </div>
 
     );

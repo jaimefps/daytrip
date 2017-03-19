@@ -23,7 +23,7 @@ export default class Header extends Component {
     const headerClass = this.props.pathname === '/signin' || this.props.pathname === '/signup' ? 'navbar-light' : 'navbar-default'
     return (
       <div>
-      <nav role="navigation" className={'navbar tiles ' + headerClass} style={{zIndex: '1000'}}>
+      <nav role="navigation" className={'navbar navbar-fixed-top tiles ' + headerClass} style={{zIndex: '1000'}}>
         <div className="container-fluid">
           <div className="navbar-header">
             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -35,7 +35,6 @@ export default class Header extends Component {
             {headerClass==='navbar-default'?<Link to="/home" className="navbar-brand">Day Trip</Link>:''}
           </div>
           <div id="navbar" className="navbar-collapse collapse">
-            <ul className="nav navbar-nav" />
             <ul className="nav navbar-nav navbar-right">
               {this.renderLinks()}
             </ul>

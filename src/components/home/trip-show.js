@@ -11,6 +11,7 @@ export default class TripShow extends Component {
       locations: [],
       data: [],
       images: [],
+      image: ''
     };
     this.handleClick = this.handleClick.bind(this);
     this.updateRoute = this.updateRoute.bind(this);
@@ -19,6 +20,7 @@ export default class TripShow extends Component {
   componentDidMount() {
     const { locations, images } = this.props.trip;
     this.setState({ locations, images });
+    this.setState({ image: images[0].slice(0, images[0].length-12)+'w200-h200-k/' })
   }
 
 
@@ -62,22 +64,38 @@ export default class TripShow extends Component {
   render() {
     const send = `/trip/${this.props.trip._id}`
     return (
-      <div className="panel panel-info">
-        <div className="panel-heading">
-          <h3 className="panel-title"><Link to={send}>{this.props.trip.tripName}</Link>, {this.props.trip.likes} likes!
-            <div className="divider" />
-            <button name={this.renderLikesButtonCaption()} onClick={this.handleClick}>{this.renderLikesButtonCaption()}</button>
-            <div className="divider" />
-            <button name="favorite" onClick={this.handleClick}>{this.renderFavoritesButtonCaption()}</button>
-          </h3>
-        </div>
-        <div className="panel-body">
-          <div className="col-md-3">
-            <img src={this.state.images[0]} alt="" />
+      <div className="container">    
+        <div className="row">
+          <div className="col-md-8">        
+            <div className="panel panel-default  panel--styled">
+              <div className="panel-body">
+                <div className="col-md-12 panelTop">  
+                  <div className="col-md-4">  
+                    <img className="img-responsive" src={this.state.image} alt=""/>
+                  </div>
+                  <div className="col-md-8">  
+                    <h2>{this.props.trip.tripName} | {this.props.trip.likes} Like(s)</h2>
+                    <p>{this.props.trip.description}</p>
+                  </div>
+                </div>
+                <div className="col-md-12 panelBottom">
+                <br />
+                  <div className="col-md-4 text-center">
+                    <Link to={send}><button className="btn btn-primary"><span className="glyphicon glyphicon glyphicon-map-marker"></span>  View Trip</button></Link>           
+                  </div>
+                  <div className="col-md-4 text-center">
+                    <button className="btn btn-primary" style={{ color: 'white'}} name={this.renderLikesButtonCaption()} onClick={this.handleClick}><span className="glyphicon glyphicon-thumbs-up"></span> {this.renderLikesButtonCaption()}</button>
+                  </div>
+                  <div className="col-md-4 text-center">
+                     <button className="btn btn-primary" style={{ color: 'white' }} name="favorite" onClick={this.handleClick}><span className="glyphicon glyphicon-heart"></span> {this.renderFavoritesButtonCaption()}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="col-md-9" style={{ wordWrap: 'break-word' }}>{this.props.trip.description}</div>
         </div>
       </div>
-    );
+
+    )
   }
 }
