@@ -68,7 +68,9 @@ export default class CreateTrip extends Component {
     e.preventDefault();
     const { tripName, locations, tips, names, description, images, coordinates } = this.state;
     const username = this.props.username;
-    axios.post(`${config.server}/trips`, { coordinates, tripName, username, description, images, locations, tips, names }).then((res) => {
+    axios.post(`${config.server}/trips`, { coordinates, tripName, username, description, images, locations, tips, names }, {
+      headers:{ authorization: localStorage.getItem('token') }
+    }).then((res) => {
       this.setState({ tripName: '' });
     });
     browserHistory.push('/home');

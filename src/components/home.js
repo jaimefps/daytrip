@@ -21,11 +21,15 @@ export default class Home extends Component {
   }
 
   fetchTrips() {
-    return axios.get(`${config.server}/trips`).then(res => this.setState({ tripData: res.data }));
+    return axios.get(`${config.server}/trips`, {
+      headers:{ authorization: localStorage.getItem('token') }
+    }).then(res => this.setState({ tripData: res.data }));
   }
 
   fetchUserData() {
-    return axios.get(`${config.server}/user?username=${this.props.username}`).then(res => this.setState({userData: res.data}))
+    return axios.get(`${config.server}/user?username=${this.props.username}`, {
+      headers:{ authorization: localStorage.getItem('token') }
+    }).then(res => this.setState({userData: res.data}))
   }
 
   render() {
