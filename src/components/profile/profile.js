@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import config from '../../config';
-import Trips from './trips';
-import Favorites from './favorites';
+import TripShow from '../home/trip-show';
 import Friends from './friends';
 import _ from 'lodash';
 
@@ -106,11 +105,11 @@ export default class Profile extends Component {
 
   renderChild() {
     if (this.state.currentTab === 'trips') {
-      return this.state.userTrips.map(trip => <Trips trip={trip} key={trip._id}/>);
+      return this.state.userTrips.map(trip => <TripShow username={this.props.username} userData={this.state.userInfo} trip={trip} key={trip._id} fetchUserData={this.getUserInfo}/>);
     }
     if (this.state.currentTab === 'favorites') {
       return this.state.tripData.filter(trip => _.includes(this.state.userInfo.favorites, trip._id))
-      .map(favorite => <Favorites favorite={favorite} key={favorite._id}/>);
+      .map(favorite => <TripShow username={this.props.username} userData={this.state.userInfo} trip={favorite} key={favorite._id} fetchUserData={this.getUserInfo}/>);
     }
     if (this.state.currentTab === 'friends') {
       return <Friends />;
@@ -119,7 +118,7 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <div className="col-xs-6 col-xs-offset-3" style={{overflowY: 'scroll'}}>
+      <div className="col-md-6 col-md-offset-3" style={{overflowY: 'scroll'}}>
         <div className="card hovercard">
           <div className="card-background">
             <img className="card-bkimg" alt="" src="../../../public/bg.jpg" />
@@ -131,7 +130,7 @@ export default class Profile extends Component {
         </div>
         <div className="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="trips" className={this.state.tripsTab}><span onClick={this.handleClick} id="trips" className="glyphicon glyphicon-star" />
+            <button onClick={this.handleClick} type="button" id="trips" className={this.state.tripsTab}><span onClick={this.handleClick} id="trips" className="glyphicon glyphicon-map-marker" />
               <div onClick={this.handleClick} id="trips" className="hidden-xs">Trips</div>
             </button>
           </div>

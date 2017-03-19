@@ -127,7 +127,7 @@ export default class CreateTrip extends Component {
     const { 
       location, locationName, names, tip, tips, place, coordinate, coordinates, locations, images 
     } = this.state;
-    const image = place[0].photos ? place[0].photos[0].getUrl({ maxWidth: 200, maxHeight: 200 }) : 'https://lh5.googleusercontent.com/-j52sfSDXIK8/V7O0JNtse6I/AAAAAAAAABE/xfYLPW9Eu_4U7JESHATtv26-jZMvpKgzQCLIB/w130-h130-k/' ;
+    const image = place[0].photos ? place[0].photos[0].getUrl({ maxWidth: 200, maxHeight: 200 }) : 'sf_giants.jpeg' ;
     this.setState({
       locations: [...locations, location],
       names: [...names, locationName],
@@ -168,7 +168,7 @@ export default class CreateTrip extends Component {
             </div>
           </div>
           <br />
-          <textarea maxlength="150" name="tip" className="form-control" placeholder="add your tips" value={this.state.tip} onChange={this.handleChange} />
+          <textarea maxLength="150" name="tip" className="form-control" placeholder="add your tips" value={this.state.tip} onChange={this.handleChange} />
           <br />
           <div className="btn-group">
             <form onSubmit={this.handleAdd} style={{display:'inline-block', marginRight: '5px'}}>

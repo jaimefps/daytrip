@@ -31,6 +31,7 @@ export default class TripShow extends Component {
       headers:{ authorization: localStorage.getItem('token') }
     }).then((res) => {
       this.props.fetchUserData();
+      this.props.fetchTrips();
     });
   }
 
@@ -64,7 +65,7 @@ export default class TripShow extends Component {
   render() {
     const send = `/trip/${this.props.trip._id}`
     return (
-      <div className="container">    
+      <div className="container" style={{width: '150%'}}>    
         <div className="row">
           <div className="col-md-8">        
             <div className="panel panel-default  panel--styled">
@@ -84,7 +85,7 @@ export default class TripShow extends Component {
                     <Link to={send}><button className="btn btn-primary"><span className="glyphicon glyphicon glyphicon-map-marker"></span>  View Trip</button></Link>           
                   </div>
                   <div className="col-md-4 text-center">
-                    <button className="btn btn-primary" style={{ color: 'white'}} name={this.renderLikesButtonCaption()} onClick={this.handleClick}><span className="glyphicon glyphicon-thumbs-up"></span> {this.renderLikesButtonCaption()}</button>
+                    <button className="btn btn-primary" style={{ color: 'white'}} name={this.renderLikesButtonCaption()} onClick={this.handleClick}>{this.props.trip.likes} <span style={{marginRight:'5px', marginLeft:'5px'}}>|</span> <span className="glyphicon glyphicon-thumbs-up"></span> {this.renderLikesButtonCaption()}</button>
                   </div>
                   <div className="col-md-4 text-center">
                      <button className="btn btn-primary" style={{ color: 'white' }} name="favorite" onClick={this.handleClick}><span className="glyphicon glyphicon-heart"></span> {this.renderFavoritesButtonCaption()}</button>
