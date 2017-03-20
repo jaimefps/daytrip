@@ -57,7 +57,7 @@ export default class Profile extends Component {
         authorization: localStorage.getItem('token') 
       } 
     }))
-    .then(res => this.setState({ userTrips: res.data }))
+    .then(res => this.setState({ userTrips: res.data }));
   }
 
   getUserInfo() {

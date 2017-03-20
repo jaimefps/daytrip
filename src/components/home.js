@@ -83,6 +83,16 @@ export default class Home extends Component {
     return sortedData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData} fetchTrips={this.fetchTrips}/>);
   }
 
+  displayErrorMessage() {
+    const tripComponents = this.renderTripComponents()
+    if (!tripComponents.length) {
+      return <h1>Loading...</h1>
+    }
+    if (!tripComponents.length && this.props.searchTerm){
+      return <h1>No Search Results</h1>
+    }
+  }
+
   render() {
     const tripComponents = this.renderTripComponents()
     return (
@@ -90,6 +100,7 @@ export default class Home extends Component {
       <div className="col-xs-8">
         <br/>
         {tripComponents}
+        {this.displayErrorMessage()}
       </div>
       <br/>
       <div className="col-xs-4">
