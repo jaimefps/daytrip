@@ -1,4 +1,4 @@
 const axios = require('axios');
-const config = require('../../src/config')
+const config = require('../../src/config');
 
-axios.patch(`${config.server}/weather`)
+axios.patch(`${config.server}/weather`);

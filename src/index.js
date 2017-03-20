@@ -10,17 +10,17 @@ import App from './components/App';
 import Signin from './components/authentication/signin';
 import Signup from './components/authentication/signup';
 import Signout from './components/authentication/signout';
-import Landing from './components/landing'
+import Landing from './components/landing';
 import Home from './components/home';
-import Profile from './components/profile/profile'
+import Profile from './components/profile/profile';
 import RequireAuth from './components/authentication/requireauth';
 import CheckAuth from './components/authentication/checkauth';
-import CreateTrip from './components/trip/createtrip'
-import TripDetails from './components/home/trip-details'
+import CreateTrip from './components/trip/createtrip';
+import TripDetails from './components/home/trip-details';
 
-var token = localStorage.getItem('token');
-var auth = token ? true : false;
-var username = localStorage.getItem('username')
+const token = localStorage.getItem('token');
+const auth = !!token;
+const username = localStorage.getItem('username');
 
 ReactDOM.render(
   <Router history={browserHistory}>
@@ -38,5 +38,4 @@ ReactDOM.render(
   ,
   document.getElementById('root'),
 );
-
 

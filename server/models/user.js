@@ -15,7 +15,7 @@ const userSchema = new Schema({
   password: String,
   first: {
     type: Boolean,
-    default: false
+    default: false,
   },
   favorites: Array,
   friends: Array,
@@ -28,7 +28,7 @@ userSchema.pre('save', function (next) {
       bcrypt.hash(this.password, salt, null, (err, hash) => {
         if (err) return next(err);
         this.password = hash;
-        this.first = true
+        this.first = true;
         next();
       });
     });
