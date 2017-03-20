@@ -16,7 +16,7 @@ export default class Profile extends Component {
       favoritesTab: 'btn btn-default',
       friendsTab: 'btn btn-default',
       tripData: [],
-      userTrips:[]
+      userTrips:[],
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -27,6 +27,29 @@ export default class Profile extends Component {
   componentDidMount() {
     this.fetchTrips();
     this.setState({ currentTab: 'trips' });
+  }
+
+  // componentDidUpdate(nextProps) {
+  //   console.log(nextProps)
+  //   if (nextProps.router.params.username !== this.props.username) {
+  //     console.log(1)
+  //   }
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      userInfo: '',
+      currentTab: <div />,
+      tripsTab: 'btn btn-primary',
+      favoritesTab: 'btn btn-default',
+      friendsTab: 'btn btn-default',
+      tripData: [],
+      userTrips:[],
+    })
+    this.props.params.username = nextProps.router.params.username
+    // console.log(nextProps.router.params.username)
+    this.fetchTrips();
+    this.getUserInfo()
   }
 
   fetchTrips() {
@@ -97,7 +120,7 @@ export default class Profile extends Component {
       .map(favorite => <TripShow routeUser={this.props.params.username} username={this.props.username} userData={this.state.userInfo} trip={favorite} key={favorite._id} fetchUserData={this.getUserInfo}/>);
     }
     if (this.state.currentTab === 'friends') {
-      return <Friends />;
+      return this.state.userInfo.friends.map(friend => <Friends friend={friend} key={Math.random()}/>)
     }
   }
 
@@ -111,7 +134,8 @@ export default class Profile extends Component {
           <div className="useravatar">
             <img alt="" src="http://www.drodd.com/images12/happy-face15.jpg" />
           </div>
-          <div className="card-info"> <span className="card-title">{this.props.params.username}</span></div>
+          <div className="card-info"> <span className="card-title">{this.props.params.username}</span>
+          </div>
         </div>
         <div className="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
           <div className="btn-group" role="group">

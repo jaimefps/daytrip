@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Link, browserHistory } from 'react-router';
 export default class Friends extends Component {
   constructor(props) {
     super(props);
@@ -8,15 +8,21 @@ export default class Friends extends Component {
     };
   }
 
+  handleClick() {
+    const userLink = `/profile/${this.props.friend}`
+    browserHistory.replace(userLink);
+  }
+
+
+
   render() {
+    const userLink = `/profile/${this.props.friend}`
     return (
-      <div className="well">
-        <div className="tab-content">
-          <div className="tab-pane fade in active" id="tab1">
-            <h3>Inside friends tab!</h3>
+        <div className="panel panel-default">
+          <div className="panel-body">
+            <h4 onClick={this.handleClick.bind(this)} style={{ cursor:'pointer' }}>{this.props.friend}</h4>
           </div>
         </div>
-      </div>
     );
   }
 }

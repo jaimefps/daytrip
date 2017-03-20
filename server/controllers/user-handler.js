@@ -26,3 +26,17 @@ exports.updateUserInfo = function (req, res) {
     })
   })
 };
+
+exports.updateUserFriends = function (req, res) {
+  const { username, friend, del } = req.body;
+  User.findOne({username}).then(user => {
+    if (del) {
+      user.friends.splice(user.friends.indexOf(friend), 1)
+      return user.save().then(user => res.status(200).send(user)); 
+    }
+    User.findOne({username: friend}).then(friendUser => {
+      user.friends.push(friendUser.username);
+      user.save().then(user => res.status(200).send(user)); 
+    })
+  })
+};
