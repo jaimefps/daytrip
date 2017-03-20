@@ -9,7 +9,7 @@ export default class Friends extends Component {
   }
 
   handleClick() {
-    const userLink = `/profile/${this.props.friend}`
+    const userLink = `/profile/${this.props.friend}`;
     browserHistory.replace(userLink);
   }
 

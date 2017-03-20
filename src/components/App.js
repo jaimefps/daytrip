@@ -57,8 +57,7 @@ class App extends Component {
 
   renderHeader() {
     return this.props.location.pathname !== '/' ?
-      <Header getSearchTerm={this.getSearchTerm} authenticated={this.state.authenticated} username={this.state.username} pathname={this.props.location.pathname} /> :
-    null;
+      <Header getSearchTerm={this.getSearchTerm} authenticated={this.state.authenticated} username={this.state.username} pathname={this.props.location.pathname} /> : null;
   }
 
   getSearchTerm(term) {

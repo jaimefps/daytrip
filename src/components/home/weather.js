@@ -22,7 +22,7 @@ export default class Weather extends Component {
     const {index} = this.state;
     if (!data.length) return <div> Loading.... </div>
     return (
-      <div className="panel panel-default" style={{fontFamily: 'roboto'}}>
+      <div className="panel panel-default" style={{fontFamily: 'roboto'}} id='floater'>
         <div className="panel-heading">
           <h3 className="panel-title">Forcecast - San Francisco, CA</h3>
         </div>

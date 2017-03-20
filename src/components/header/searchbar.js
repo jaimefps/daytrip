@@ -10,13 +10,13 @@ export default class Searchbar extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleSubmit(e) {
-    this.setState({ term: '' })
-    this.props.getSearchTerm('')
+    this.setState({ term: '' });
+    this.props.getSearchTerm('');
   }
 
   handleChange(e) {
     this.setState({term: e.target.value});
-    this.props.getSearchTerm(this.state.term)
+    this.props.getSearchTerm(this.state.term);
   }
 
   render() {
