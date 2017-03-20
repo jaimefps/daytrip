@@ -14,7 +14,7 @@ class App extends Component {
       username: this.props.route.routerProps[1],
       err: '',
       hasErr: false,
-      term:'',
+      term: '',
     };
     this.getSearchTerm = this.getSearchTerm.bind(this);
     this.signup = this.signup.bind(this);
@@ -65,12 +65,12 @@ class App extends Component {
   }
 
   render() {
-    const bgClass = this.props.location.pathname === '/signup' || this.props.location.pathname === '/signin' ? 'landing' : 'app'
+    const bgClass = this.props.location.pathname === '/signup' || this.props.location.pathname === '/signin' ? 'landing' : 'app';
     return (
-      <div className={bgClass} style={{zIndex:'0'}}>
+      <div className={bgClass} style={{ zIndex: '0' }}>
         {this.renderHeader()}
         { renderChildren(this.props, this.state, this) }
-        
+
       </div>
 
     );

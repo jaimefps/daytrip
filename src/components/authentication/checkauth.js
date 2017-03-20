@@ -15,7 +15,7 @@ export default function(Comp) {
 		componentWillUpdate(nextProps) {
 			if (this.props.authenticated) {
 				this.context.router.push('/home')
-			}
+			} 
 		}
 
 		render() {
