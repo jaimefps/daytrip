@@ -16,7 +16,7 @@ export default class Searchbar extends Component {
 
   handleChange(e) {
     this.setState({term: e.target.value});
-    this.props.getSearchTerm(this.state.term);
+    this.props.getSearchTerm(e.target.value);
   }
 
   render() {
@@ -24,7 +24,7 @@ export default class Searchbar extends Component {
       return <div style={{marginLeft:'100px'}}/>
     }
     return (
-      <form className="navbar-form" style={{display: 'inline-block'}}>
+      <form className="navbar-form" style={{display: 'inline-block'}} onSubmit={(e)=>e.preventDefault()}>
         <div className="form-group">
           <div className="input-group">
  

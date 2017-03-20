@@ -5,6 +5,7 @@ import config from '../../config';
 import LocationTile from './locationtile';
 import DefineTrip from './definetrip';
 import { browserHistory } from 'react-router';
+import svg from './Flag_4.svg'
 
 export default class CreateTrip extends Component {
   constructor(props) {
@@ -81,12 +82,9 @@ export default class CreateTrip extends Component {
   }
 
   addMarker(lat, lng) {
-    const icon={
-      path: window.google.maps.SymbolPath.CIRCLE,
-      scale: 8.5,
-      fillColor: "#F00",
-      fillOpacity: 0.4,
-      strokeWeight: 0.4
+    const icon= {
+    url: svg,
+    scaledSize: new window.google.maps.Size(64, 64)
     }
     var contentString = `<div id="content"><div id="siteNotice"></div>
       <h3 id="firstHeading" class="firstHeading">${this.state.locationName}</h3>

@@ -23,7 +23,8 @@ exports.postTrips = function (req, res) {
 };
 
 exports.updateTrips = function (req, res) {
-  Trips.findByIdAndUpdate(req.body._id, req.body, (err, data) => {
+  const {_id, likes, likesByUsers} = req.body
+  Trips.findByIdAndUpdate(req.body._id, { _id, likes, likesByUsers }, (err, data) => {
     if (err) { console.error(err); }
   });
   res.send('Rating sent');

@@ -4,6 +4,7 @@ import axios from 'axios';
 import config from '../../config';
 import LocationTile from '../trip/locationtile'
 import _ from 'lodash';
+import svg from '../trip/Flag_4.svg'
 
 export default class TripDetails extends Component {
   constructor(props) {
@@ -48,12 +49,9 @@ export default class TripDetails extends Component {
   }
 
   addMarkers() {
-    const icon={
-      path: window.google.maps.SymbolPath.CIRCLE,
-      scale: 8.5,
-      fillColor: "#F00",
-      fillOpacity: 0.4,
-      strokeWeight: 0.4
+    const icon = {
+      url: svg,
+      scaledSize: new window.google.maps.Size(64, 64)
     }
     this.state.data.coordinates.map((loc, i) => {
 

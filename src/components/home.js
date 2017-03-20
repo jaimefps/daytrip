@@ -39,12 +39,12 @@ export default class Home extends Component {
         break;
       case 'tripname': 
           this.setState({ sortedData: this.state.tripData.slice().sort((a,b) => {
-            return a.tripName.localeCompare(b.tripName)
-          }) 
-        })
+            return a.tripName.localeCompare(b.tripName);
+          })
+        });
         break;
       case 'oldest':
-        this.setState({ sortedData: this.state.tripData.slice() })
+        this.setState({ sortedData: this.state.tripData.slice() });
         break;
       default:
         break;
@@ -54,30 +54,29 @@ export default class Home extends Component {
   fetchTrips() {
     return axios.get(`${config.server}/trips`, {
       headers:{ authorization: localStorage.getItem('token') }
-    }).then(res => this.setState({ tripData: res.data }))
+    }).then(res => this.setState({ tripData: res.data }));
   }
 
   fetchUserData() {
     return axios.get(`${config.server}/user?username=${this.props.username}`, {
       headers:{ authorization: localStorage.getItem('token') }
-    }).then(res => this.setState({userData: res.data}))
+    }).then(res => this.setState({userData: res.data}));
   }
 
   fetchWeatherData() {
     axios.get(`${config.server}/weather`, {
       headers:{ authorization: localStorage.getItem('token') }
-    }).then(res => this.setState({ weatherData: res.data }))
+    }).then(res => this.setState({ weatherData: res.data }));
   }
 
   renderTripComponents() {
-    let { sortedData } = this.state
-    const { searchTerm } = this.props
+    let { sortedData } = this.state;
+    const { searchTerm } = this.props;
     if (searchTerm) {
       sortedData = sortedData.filter(entry => {
-        const { description, locations, names, tips, tripName } = entry
-        const concatination = description + ' ' + locations + ' ' + names + ' ' + tips + ' ' + tripName
-        console.log(new RegExp(this.props.searchTerm, 'i'))
-        return new RegExp(this.props.searchTerm, 'i').test(concatination)
+        const { description, locations, names, tips, tripName } = entry;
+        const concatination = description + ' ' + locations + ' ' + names + ' ' + tips + ' ' + tripName;
+        return new RegExp(this.props.searchTerm, 'i').test(concatination);
       }) 
     } 
     return sortedData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData} fetchTrips={this.fetchTrips}/>);
@@ -85,11 +84,12 @@ export default class Home extends Component {
 
   displayErrorMessage() {
     const tripComponents = this.renderTripComponents()
-    if (!tripComponents.length) {
-      return <h1>Loading...</h1>
-    }
     if (!tripComponents.length && this.props.searchTerm){
       return <h1>No Search Results</h1>
+    }
+
+    if (!tripComponents.length) {
+      return <h1>Loading...</h1>
     }
   }
 
