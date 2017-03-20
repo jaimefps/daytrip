@@ -114,6 +114,27 @@ export default class TripShow extends Component {
     }
   }
 
+  renderDropDown() {
+    const linkUser = `/profile/${this.props.trip.username}`
+    if(!this.props.routeUser || this.props.routeUser === this.props.username) {
+      return (
+        <h4 style={{display:'inline-block'}}>Created By: 
+          <div style={{display:'inline-block', marginLeft:'5px', cursor:'pointer'}} className="dropdown">
+            <span type="button" data-toggle="dropdown">{this.props.trip.username}
+            <span className="caret"></span></span>
+              <ul className="dropdown-menu">
+                <li> <Link style={{textDecoration: 'none', color:'black'}} to={linkUser}>View Profile</Link></li>
+                {this.renderFriendsLink()}
+              </ul>
+          </div>
+        </h4>
+
+      )
+    } else {
+      return ''
+    }
+  }
+
   renderFriendsLink() {
     if (this.props.username !== this.props.trip.username) {
       return <li><a href="#" onClick={this.handleClick} name="friend">{this.renderFriendsButtonCaption()}</a></li>
@@ -121,7 +142,6 @@ export default class TripShow extends Component {
   }
 
   render() {
-    const linkUser = `/profile/${this.props.trip.username}`
     return (
 
           <div className="col-md-8"  style={{width: '100%'}}>        
@@ -133,15 +153,7 @@ export default class TripShow extends Component {
                   </div>
                   <div className="col-md-8">  
                     <h2>{this.props.trip.tripName}</h2>
-                    <h4 style={{display:'inline-block'}}>Created By: 
-                      <div style={{display:'inline-block', marginLeft:'5px', cursor:'pointer'}} className="dropdown">
-                        <span type="button" data-toggle="dropdown">{this.props.trip.username}
-                        <span className="caret"></span></span>
-                          <ul className="dropdown-menu">
-                            <li> <Link style={{textDecoration: 'none', color:'black'}} to={linkUser}>View Profile</Link></li>
-                            {this.renderFriendsLink()}
-                          </ul>
-                        </div></h4>
+                    {this.renderDropDown()}
                     
                     <p style={{wordWrap: 'break-word'}}>{this.props.trip.description}</p>
                   </div>

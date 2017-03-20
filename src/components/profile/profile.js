@@ -110,12 +110,12 @@ export default class Profile extends Component {
       return this.state.userTrips.map(trip => <TripShow routeUser={this.props.params.username} username={this.props.username} userData={this.state.userInfo} trip={trip} key={trip._id} fetchUserData={this.getUserInfo}/>);
     }
     if (this.state.currentTab === 'favorites') {
-      if(!this.state.userInfo.favorites) return <h2 className="text-center"> No Favorites Yet </h2>
+      if(!this.state.userInfo.favorites.length) return <h2 className="text-center"> No Favorites Yet </h2>
       return this.state.tripData.filter(trip => _.includes(this.state.userInfo.favorites, trip._id))
       .map(favorite => <TripShow routeUser={this.props.params.username} username={this.props.username} userData={this.state.userInfo} trip={favorite} key={favorite._id} fetchUserData={this.getUserInfo}/>);
     }
     if (this.state.currentTab === 'friends') {
-      if(!this.state.userInfo.friends) return <h2 className="text-center"> No Friends Yet </h2>
+      if(!this.state.userInfo.friends.length) return <h2 className="text-center"> No Friends Yet </h2>
       return this.state.userInfo.friends.map(friend => <Friends friend={friend} key={Math.random()}/>)
     }
   }

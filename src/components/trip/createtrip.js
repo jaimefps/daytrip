@@ -167,7 +167,7 @@ export default class CreateTrip extends Component {
         <div style={{ display: toggle }} >
           <div className="row">
             <div className="col-xs-4">
-              <input type="text" name="locationName" value={this.state.locationName} placeholder="Location name" className="form-control" onChange={this.handleChange} />
+              <input type="text" maxLength="30" name="locationName" value={this.state.locationName} placeholder="Location name" className="form-control" onChange={this.handleChange} />
             </div>
             <div className="col-xs-8">
               <input
