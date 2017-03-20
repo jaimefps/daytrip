@@ -14,14 +14,13 @@ export default class Friends extends Component {
   }
 
 
-
   render() {
     return (
-        <div className="panel panel-default">
-          <div className="panel-body">
-            <h4 onClick={this.handleClick.bind(this)} style={{ cursor:'pointer' }}>{this.props.friend}</h4>
-          </div>
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <h4 onClick={this.handleClick.bind(this)} style={{ cursor: 'pointer' }}>{this.props.friend}</h4>
         </div>
+      </div>
     );
   }
 }
