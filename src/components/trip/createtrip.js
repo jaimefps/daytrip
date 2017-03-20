@@ -23,6 +23,7 @@ export default class CreateTrip extends Component {
       locationName: '',
       tip: '',
       toggle: false,
+      alert: ''
     };
 
     this.addMarker = this.addMarker.bind(this);
@@ -120,15 +121,23 @@ export default class CreateTrip extends Component {
     this.setState(state);
   }
 
+  capitalize(string) {
+    return string.split(' ').map(word => word[0].toUpperCase()+word.slice(1)).join(' ')
+  }
+
   handleAdd(e) {
     e.preventDefault();
     const { 
       location, locationName, names, tip, tips, place, coordinate, coordinates, locations, images 
     } = this.state;
+    if (tip.replace(/\s/g, '') === '' || locationName.replace(/\s/g, '') === '' || location.replace(/\s/g, '') === '') {
+      this.setState({alert: <div className="alert alert-danger">All Fields Are Required</div>})
+      return
+    }
     const image = place[0].photos ? place[0].photos[0].getUrl({ maxWidth: 200, maxHeight: 200 }) : 'https://i.forbesimg.com/media/lists/places/san-francisco-ca_200x200.jpg' ;
     this.setState({
       locations: [...locations, location],
-      names: [...names, locationName],
+      names: [...names, this.capitalize(locationName)],
       tips: [...tips, tip],
       images: [...images, image],
       coordinates: [...coordinates, coordinate]
@@ -139,6 +148,7 @@ export default class CreateTrip extends Component {
       tip: '',
     });
     this.addMarker(this.state.coordinate[0], this.state.coordinate[1]);
+    this.setState({alert: ''})
   }
 
   createTrip(tripName, description) {
@@ -168,6 +178,7 @@ export default class CreateTrip extends Component {
           <br />
           <textarea maxLength="150" name="tip" className="form-control" placeholder="add your tips" value={this.state.tip} onChange={this.handleChange} />
           <br />
+          {this.state.alert}
           <div className="btn-group">
             <form onSubmit={this.handleAdd} style={{display:'inline-block', marginRight: '5px'}}>
               <button action="submit" className="btn btn-primary">Add Location</button>

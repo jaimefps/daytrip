@@ -11,7 +11,7 @@ export default class TripShow extends Component {
       locations: [],
       data: [],
       images: [],
-      image: ''
+      image: '',
     };
     this.handleClick = this.handleClick.bind(this);
     this.updateRoute = this.updateRoute.bind(this);
@@ -20,7 +20,7 @@ export default class TripShow extends Component {
   componentDidMount() {
     const { locations, images } = this.props.trip;
     this.setState({ locations, images });
-    this.setState({ image: images[0] })
+    this.setState({ image: images[0] });
   }
 
 
@@ -35,8 +35,8 @@ export default class TripShow extends Component {
     });
   }
 
-  handleFriends(bool) {
-    axios.patch(`${config.server}/user`, { username: this.props.username, del: bool, friend: this.props.trip.username }, {
+  handleFriends(del) {
+    axios.patch(`${config.server}/user`, { username: this.props.username, del, friend: this.props.trip.username }, {
       headers:{ authorization: localStorage.getItem('token') }
     }).then((res) => {
       this.props.fetchUserData();
