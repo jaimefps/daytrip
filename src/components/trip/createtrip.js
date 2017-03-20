@@ -180,7 +180,7 @@ export default class CreateTrip extends Component {
             </div>
           </div>
           <br />
-          <textarea maxLength="150" name="tip" className="form-control" placeholder="add your tips" value={this.state.tip} onChange={this.handleChange} />
+          <textarea maxLength="300" name="tip" className="form-control" placeholder="add your tips" value={this.state.tip} onChange={this.handleChange} />
           <br />
           {this.state.alert}
           <div className="btn-group">
