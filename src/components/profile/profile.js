@@ -6,9 +6,6 @@ import Friends from './friends';
 import _ from 'lodash';
 
 export default class Profile extends Component {
-  static contextTypes = {
-      router: React.PropTypes.object
-  }
   
   constructor(props) {
     super(props);
@@ -32,25 +29,13 @@ export default class Profile extends Component {
     this.setState({ currentTab: 'trips' });
   }
 
-  componentWillMount() {
-    if (this.props.username !== this.props.params.username) {
-      this.context.router.push('/home');
-    }
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.username !== this.props.params.username) {
-      this.context.router.push('/home');
-    }
-  }
-
   fetchTrips() {
     return axios.get(`${config.server}/trips`, {
       headers:{ authorization: localStorage.getItem('token') }
     }).then(res => this.setState({ tripData: res.data }))
     .then(() => axios.get(`${config.server}/trips`, { 
       params: { 
-        username: this.props.username 
+        username: this.props.params.username 
       }, 
       headers:{ 
         authorization: localStorage.getItem('token') 
@@ -62,7 +47,7 @@ export default class Profile extends Component {
   getUserInfo() {
     return axios.get(`${config.server}/user`, { 
       params: { 
-        username: this.props.username 
+        username: this.props.params.username 
       }, 
       headers:{ 
         authorization: localStorage.getItem('token') 
@@ -105,11 +90,11 @@ export default class Profile extends Component {
 
   renderChild() {
     if (this.state.currentTab === 'trips') {
-      return this.state.userTrips.map(trip => <TripShow username={this.props.username} userData={this.state.userInfo} trip={trip} key={trip._id} fetchUserData={this.getUserInfo}/>);
+      return this.state.userTrips.map(trip => <TripShow routeUser={this.props.params.username} username={this.props.username} userData={this.state.userInfo} trip={trip} key={trip._id} fetchUserData={this.getUserInfo}/>);
     }
     if (this.state.currentTab === 'favorites') {
       return this.state.tripData.filter(trip => _.includes(this.state.userInfo.favorites, trip._id))
-      .map(favorite => <TripShow username={this.props.username} userData={this.state.userInfo} trip={favorite} key={favorite._id} fetchUserData={this.getUserInfo}/>);
+      .map(favorite => <TripShow routeUser={this.props.params.username} username={this.props.username} userData={this.state.userInfo} trip={favorite} key={favorite._id} fetchUserData={this.getUserInfo}/>);
     }
     if (this.state.currentTab === 'friends') {
       return <Friends />;
@@ -126,7 +111,7 @@ export default class Profile extends Component {
           <div className="useravatar">
             <img alt="" src="http://www.drodd.com/images12/happy-face15.jpg" />
           </div>
-          <div className="card-info"> <span className="card-title">{this.props.username}</span></div>
+          <div className="card-info"> <span className="card-title">{this.props.params.username}</span></div>
         </div>
         <div className="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
           <div className="btn-group" role="group">

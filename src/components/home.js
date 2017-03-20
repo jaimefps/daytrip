@@ -23,7 +23,7 @@ export default class Home extends Component {
 
   componentDidMount() {
     this.fetchUserData();
-    this.fetchTrips();
+    this.fetchTrips().then(() => this.sort('likes'));;
     this.fetchWeatherData();
   }
 
@@ -54,7 +54,7 @@ export default class Home extends Component {
   fetchTrips() {
     return axios.get(`${config.server}/trips`, {
       headers:{ authorization: localStorage.getItem('token') }
-    }).then(res => this.setState({ tripData: res.data })).then(() => this.sort('likes'));
+    }).then(res => this.setState({ tripData: res.data }))
   }
 
   fetchUserData() {

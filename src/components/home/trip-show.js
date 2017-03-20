@@ -62,8 +62,39 @@ export default class TripShow extends Component {
     return _.includes(trip.likesByUsers, username) ? 'Remove Like' : 'Add Like'
   }
 
-  render() {
+  renderPanelBottom() {
     const send = `/trip/${this.props.trip._id}`
+    if(!this.props.routeUser || this.props.routeUser === this.props.username) {
+      return (
+        <div className="col-md-12 panelBottom">
+          <br />
+            <div className="col-md-4 text-center">
+              <Link to={send}><button className="btn btn-primary"><span className="glyphicon glyphicon glyphicon-map-marker"></span>  View Trip</button></Link>           
+            </div>
+            <div>
+            <div className="col-md-4 text-center">
+              <button className="btn btn-primary" style={{ color: 'white'}} name={this.renderLikesButtonCaption()} onClick={this.handleClick}>{this.props.trip.likes} <span style={{marginRight:'5px', marginLeft:'5px'}}>|</span> <span className="glyphicon glyphicon-thumbs-up"></span> {this.renderLikesButtonCaption()}</button>
+            </div>
+            <div className="col-md-4 text-center">
+               <button className="btn btn-primary" style={{ color: 'white' }} name="favorite" onClick={this.handleClick}><span className="glyphicon glyphicon-heart"></span> {this.renderFavoritesButtonCaption()}</button>
+            </div>
+            </div>
+          </div>
+      ) 
+    } else {
+      return (
+        <div className="col-md-12 panelBottom">
+          <br />
+            <div className="col-md-12 text-center">
+              <Link to={send}><button className="btn btn-primary"><span className="glyphicon glyphicon glyphicon-map-marker"></span>  View Trip</button></Link>           
+            </div>
+          </div>
+      ) 
+    }
+  }
+
+  render() {
+    const linkUser = `/profile/${this.props.trip.username}`
     return (
       <div className="container" style={{width: '150%'}}>    
         <div className="row">
@@ -75,22 +106,12 @@ export default class TripShow extends Component {
                     <img className="img-responsive" src={this.state.image} alt=""/>
                   </div>
                   <div className="col-md-8">  
-                    <h2>{this.props.trip.tripName} | {this.props.trip.likes} Like(s)</h2>
+                    <h2>{this.props.trip.tripName}</h2>
+                    <h4>Created By: <Link to={linkUser} >{this.props.trip.username}</Link></h4>
                     <p>{this.props.trip.description}</p>
                   </div>
                 </div>
-                <div className="col-md-12 panelBottom">
-                <br />
-                  <div className="col-md-4 text-center">
-                    <Link to={send}><button className="btn btn-primary"><span className="glyphicon glyphicon glyphicon-map-marker"></span>  View Trip</button></Link>           
-                  </div>
-                  <div className="col-md-4 text-center">
-                    <button className="btn btn-primary" style={{ color: 'white'}} name={this.renderLikesButtonCaption()} onClick={this.handleClick}>{this.props.trip.likes} <span style={{marginRight:'5px', marginLeft:'5px'}}>|</span> <span className="glyphicon glyphicon-thumbs-up"></span> {this.renderLikesButtonCaption()}</button>
-                  </div>
-                  <div className="col-md-4 text-center">
-                     <button className="btn btn-primary" style={{ color: 'white' }} name="favorite" onClick={this.handleClick}><span className="glyphicon glyphicon-heart"></span> {this.renderFavoritesButtonCaption()}</button>
-                  </div>
-                </div>
+                {this.renderPanelBottom()}
               </div>
             </div>
           </div>
