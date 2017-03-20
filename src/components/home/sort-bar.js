@@ -34,7 +34,7 @@ export default class SortBar extends Component {
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav navbar-right">
+            <ul className="nav navbar-nav navbar-right" style={{fontSize: '12px'}}>
               <li className={this.state.likes} style={{ cursor: 'pointer' }}><a onClick={this.handleClick} name="likes">Likes</a></li>
               <li className={this.state.newest} style={{ cursor: 'pointer' }}><a onClick={this.handleClick} name="newest">Newest</a></li>
               <li className={this.state.oldest} style={{ cursor: 'pointer' }}><a onClick={this.handleClick} name="oldest">Oldest</a></li>
