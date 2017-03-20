@@ -127,7 +127,7 @@ export default class CreateTrip extends Component {
     const { 
       location, locationName, names, tip, tips, place, coordinate, coordinates, locations, images 
     } = this.state;
-    const image = place[0].photos ? place[0].photos[0].getUrl({ maxWidth: 200, maxHeight: 200 }) : 'sf_giants.jpeg' ;
+    const image = place[0].photos ? place[0].photos[0].getUrl({ maxWidth: 200, maxHeight: 200 }) : 'https://i.forbesimg.com/media/lists/places/san-francisco-ca_200x200.jpg' ;
     this.setState({
       locations: [...locations, location],
       names: [...names, locationName],

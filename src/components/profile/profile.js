@@ -29,13 +29,6 @@ export default class Profile extends Component {
     this.setState({ currentTab: 'trips' });
   }
 
-  // componentDidUpdate(nextProps) {
-  //   console.log(nextProps)
-  //   if (nextProps.router.params.username !== this.props.username) {
-  //     console.log(1)
-  //   }
-  // }
-
   componentWillReceiveProps(nextProps) {
     this.setState({
       userInfo: '',
@@ -47,9 +40,9 @@ export default class Profile extends Component {
       userTrips:[],
     })
     this.props.params.username = nextProps.router.params.username
-    // console.log(nextProps.router.params.username)
     this.fetchTrips();
-    this.getUserInfo()
+    this.setState({ currentTab: 'trips' });
+    this.getUserInfo();
   }
 
   fetchTrips() {

@@ -28,7 +28,7 @@ export default class Weather extends Component {
         </div>
         <div className="panel-body">
           <div className="col-md-4 panelTop text-center">
-            <img src={data[index].icon_url} /><p style={{marginBottom: '0px'}}/>
+            <img src={data[index].icon_url} alt="" /><p style={{marginBottom: '0px'}}/>
             <span>{data[index].conditions}</span>
           </div>
           <div className="col-md-4 panelTop text-center">
@@ -36,7 +36,7 @@ export default class Weather extends Component {
             <div style={{fontSize: '18px'}}>{data[index].low.fahrenheit}<sup>º</sup></div>
           </div>
           <div className="col-md-4 panelTop text-center">
-            <img src="https://image.flaticon.com/icons/svg/56/56086.svg" style={{height:'50px', width:'50px'}}/><p style={{marginBottom: '0px'}}/>
+            <img src="https://image.flaticon.com/icons/svg/56/56086.svg" alt="" style={{height:'50px', width:'50px'}}/><p style={{marginBottom: '0px'}}/>
             <span>{data[index].avewind.mph} mph {data[index].avewind.dir}</span>
           </div>
           <div className="col-md-12 panelBottom text-center" style={{marginTop: '10px'}}>
