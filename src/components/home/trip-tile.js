@@ -13,7 +13,7 @@ export default class TripShow extends Component {
       images: [],
       image: '',
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClick = _.throttle(this.handleClick.bind(this));
     this.updateRoute = this.updateRoute.bind(this);
   }
 
