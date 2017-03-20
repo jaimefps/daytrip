@@ -20,6 +20,9 @@ export default class Searchbar extends Component {
   }
 
   render() {
+    if (!this.props.doesRender) {
+      return <div style={{marginLeft:'100px'}}/>
+    }
     return (
       <form className="navbar-form" style={{display: 'inline-block'}}>
         <div className="form-group">
