@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import config from '../../config';
-import TripShow from '../home/trip-show';
+import TripShow from '../home/trip-tile';
 import Friends from './friends';
 import _ from 'lodash';
 

@@ -97,7 +97,7 @@ export default class TripDetails extends Component {
       <div className="createMap" style={{height: '100%', width: '100%', position:'relative'}}>
         <div style={{ height: '100%', width: '50%', position:'absolute' }} className="col-xs-6 col-xs-offset-6" id="map" />
         <div className="col-xs-6" style={{ maxHeight: '100%', overflow: 'scroll' }}> 
-          <div className="col-xs-6">{this.state.data.tripName ? <h1 style={{fontFamily:'lobster'}}>{this.state.data.tripName}<hr/></h1> : ''}</div>
+          <div className="col-xs-12">{this.state.data.tripName ? <h1 style={{fontFamily:'lobster'}}>{this.state.data.tripName}<hr/></h1> : ''}</div>
           {this.renderLocations()}
         </div>
       </div>

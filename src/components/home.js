@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import config from '../config';
-import Trip from './home/trip-show';
+import Trip from './home/trip-tile';
 import Weather from './home/weather';
 import SortBar from './home/sort-bar';
 

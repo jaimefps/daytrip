@@ -18,10 +18,14 @@ export default class DefineTrip extends Component {
     this.setState(state);
   }
 
+  capitalize(string) {
+    return string.split(' ').map(word => word[0].toUpperCase()+word.slice(1)).join(' ')
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const { name, description } = this.state;
-    this.props.submit(name, description);
+    this.props.submit(this.capitalize(name), description);
   }
 
   render() {
