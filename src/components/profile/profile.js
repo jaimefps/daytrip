@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import config from '../../config';
-import Trips from './trips';
-import Favorites from './favorites';
+import TripShow from '../home/trip-show';
 import Friends from './friends';
 import _ from 'lodash';
 
 export default class Profile extends Component {
-  static contextTypes = {
-      router: React.PropTypes.object
-  }
   
   constructor(props) {
     super(props);
@@ -33,25 +29,13 @@ export default class Profile extends Component {
     this.setState({ currentTab: 'trips' });
   }
 
-  componentWillMount() {
-    if (this.props.username !== this.props.params.username) {
-      this.context.router.push('/home');
-    }
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.username !== this.props.params.username) {
-      this.context.router.push('/home');
-    }
-  }
-
   fetchTrips() {
     return axios.get(`${config.server}/trips`, {
       headers:{ authorization: localStorage.getItem('token') }
     }).then(res => this.setState({ tripData: res.data }))
     .then(() => axios.get(`${config.server}/trips`, { 
       params: { 
-        username: this.props.username 
+        username: this.props.params.username 
       }, 
       headers:{ 
         authorization: localStorage.getItem('token') 
@@ -63,7 +47,7 @@ export default class Profile extends Component {
   getUserInfo() {
     return axios.get(`${config.server}/user`, { 
       params: { 
-        username: this.props.username 
+        username: this.props.params.username 
       }, 
       headers:{ 
         authorization: localStorage.getItem('token') 
@@ -106,11 +90,11 @@ export default class Profile extends Component {
 
   renderChild() {
     if (this.state.currentTab === 'trips') {
-      return this.state.userTrips.map(trip => <Trips trip={trip} key={trip._id}/>);
+      return this.state.userTrips.map(trip => <TripShow routeUser={this.props.params.username} username={this.props.username} userData={this.state.userInfo} trip={trip} key={trip._id} fetchUserData={this.getUserInfo}/>);
     }
     if (this.state.currentTab === 'favorites') {
       return this.state.tripData.filter(trip => _.includes(this.state.userInfo.favorites, trip._id))
-      .map(favorite => <Favorites favorite={favorite} key={favorite._id}/>);
+      .map(favorite => <TripShow routeUser={this.props.params.username} username={this.props.username} userData={this.state.userInfo} trip={favorite} key={favorite._id} fetchUserData={this.getUserInfo}/>);
     }
     if (this.state.currentTab === 'friends') {
       return <Friends />;
@@ -119,7 +103,7 @@ export default class Profile extends Component {
 
   render() {
     return (
-      <div className="col-xs-6 col-xs-offset-3" style={{overflowY: 'scroll'}}>
+      <div className="col-md-6 col-md-offset-3" style={{overflowY: 'scroll'}}>
         <div className="card hovercard">
           <div className="card-background">
             <img className="card-bkimg" alt="" src="../../../public/bg.jpg" />
@@ -127,21 +111,21 @@ export default class Profile extends Component {
           <div className="useravatar">
             <img alt="" src="http://www.drodd.com/images12/happy-face15.jpg" />
           </div>
-          <div className="card-info"> <span className="card-title">{this.props.username}</span></div>
+          <div className="card-info"> <span className="card-title">{this.props.params.username}</span></div>
         </div>
         <div className="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="trips" className={this.state.tripsTab}><span className="glyphicon glyphicon-star" />
+            <button onClick={this.handleClick} type="button" id="trips" className={this.state.tripsTab}><span onClick={this.handleClick} id="trips" className="glyphicon glyphicon-map-marker" />
               <div onClick={this.handleClick} id="trips" className="hidden-xs">Trips</div>
             </button>
           </div>
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="favorites" className={this.state.favoritesTab}><span className="glyphicon glyphicon-heart"/>
+            <button onClick={this.handleClick} type="button" id="favorites" className={this.state.favoritesTab}><span onClick={this.handleClick} id="favorites" className="glyphicon glyphicon-heart"/>
               <div onClick={this.handleClick} id="favorites" className="hidden-xs">Favorites</div>
             </button>
           </div>
           <div className="btn-group" role="group">
-            <button onClick={this.handleClick} type="button" id="friends" className={this.state.friendsTab}><span className="glyphicon glyphicon-user" />
+            <button onClick={this.handleClick} type="button" id="friends" className={this.state.friendsTab}><span onClick={this.handleClick} id="friends" className="glyphicon glyphicon-user" />
               <div className="hidden-xs" onClick={this.handleClick} id="friends">Friends</div>
             </button>
           </div>

@@ -1,6 +1,7 @@
 const Authentication = require('./controllers/authentication');
 const tripsHandler = require('./controllers/trips-handler');
 const userHandler = require('./controllers/user-handler');
+const weatherHandler = require('./controllers/weather-handler')
 const passportService = require('./services/passport');
 const passport = require('passport');
 
@@ -15,4 +16,6 @@ module.exports = function (app) {
   app.put('/trips', requireAuth, tripsHandler.updateTrips);
   app.get('/user', requireAuth, userHandler.getUserInfo);
   app.put('/user', requireAuth, userHandler.updateUserInfo); 
+  app.get('/weather', requireAuth, weatherHandler.sendData)
+  app.patch('/weather', requireAuth, weatherHandler.fetchData)
 };
