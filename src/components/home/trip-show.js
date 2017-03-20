@@ -35,6 +35,16 @@ export default class TripShow extends Component {
     });
   }
 
+  handleFriends(bool) {
+    axios.patch(`${config.server}/user`, { username: this.props.username, del: bool, friend: this.props.trip.username }, {
+      headers:{ authorization: localStorage.getItem('token') }
+    }).then((res) => {
+      this.props.fetchUserData();
+      this.props.fetchTrips();
+    });
+    
+  }
+
 
   handleClick(e) {
     if (e.target.name === 'Add Like') {
@@ -48,12 +58,23 @@ export default class TripShow extends Component {
     } else if (e.target.name === 'favorite') {
       const action = this.renderFavoritesButtonCaption() === 'Remove from favorites' ? 'delete' : null;
       this.updateRoute('user', action);
+    } else if (e.target.name === 'friend') {
+      if (this.renderFriendsButtonCaption() === 'Remove friend') {
+        this.handleFriends(true);
+      } else {
+        this.handleFriends(false);
+      }
     }
   }
 
   renderFavoritesButtonCaption() {
     const { userData, trip } = this.props;
     return _.includes(userData.favorites, trip._id) ? 'Remove from favorites' : 'Add to favorites';
+  }
+
+  renderFriendsButtonCaption() {
+    const { userData, trip } = this.props;
+    return _.includes(userData.friends, trip.username) ? 'Remove friend' : 'Add friend';
   }
 
 
@@ -93,6 +114,12 @@ export default class TripShow extends Component {
     }
   }
 
+  renderFriendsLink() {
+    if (this.props.username !== this.props.trip.username) {
+      return <li><a href="#" onClick={this.handleClick} name="friend">{this.renderFriendsButtonCaption()}</a></li>
+    } 
+  }
+
   render() {
     const linkUser = `/profile/${this.props.trip.username}`
     return (
@@ -107,8 +134,17 @@ export default class TripShow extends Component {
                   </div>
                   <div className="col-md-8">  
                     <h2>{this.props.trip.tripName}</h2>
-                    <h4>Created By: <Link to={linkUser} >{this.props.trip.username}</Link></h4>
-                    <p>{this.props.trip.description}</p>
+                    <h4 style={{display:'inline-block'}}>Created By: 
+                      <div style={{display:'inline-block', marginLeft:'5px', cursor:'pointer'}} className="dropdown">
+                        <span type="button" data-toggle="dropdown">{this.props.trip.username}
+                        <span className="caret"></span></span>
+                          <ul className="dropdown-menu">
+                            <li> <Link style={{textDecoration: 'none', color:'black'}} to={linkUser}>View Profile</Link></li>
+                            {this.renderFriendsLink()}
+                          </ul>
+                        </div></h4>
+                    
+                    <p style={{wordWrap: 'break-word'}}>{this.props.trip.description}</p>
                   </div>
                 </div>
                 {this.renderPanelBottom()}
@@ -117,7 +153,6 @@ export default class TripShow extends Component {
           </div>
         </div>
       </div>
-
     )
   }
 }

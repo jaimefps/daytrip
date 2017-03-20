@@ -15,7 +15,8 @@ module.exports = function (app) {
   app.post('/trips',  requireAuth, tripsHandler.postTrips);
   app.put('/trips', requireAuth, tripsHandler.updateTrips);
   app.get('/user', requireAuth, userHandler.getUserInfo);
-  app.put('/user', requireAuth, userHandler.updateUserInfo); 
+  app.put('/user', requireAuth, userHandler.updateUserInfo);
+  app.patch('/user', requireAuth, userHandler.updateUserFriends); 
   app.get('/weather', requireAuth, weatherHandler.sendData)
   app.patch('/weather', requireAuth, weatherHandler.fetchData)
 };
