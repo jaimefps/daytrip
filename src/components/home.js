@@ -79,7 +79,7 @@ export default class Home extends Component {
         return new RegExp(this.props.searchTerm, 'i').test(concatination);
       }) 
     } 
-    return sortedData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData} fetchTrips={this.fetchTrips}/>);
+    return sortedData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData} sort={this.sort} fetchTrips={this.fetchTrips}/>);
   }
 
   displayErrorMessage() {
