@@ -5,7 +5,7 @@ const tripSchema = new Schema({
   tripName: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   username: {
     type: String,
@@ -20,7 +20,7 @@ const tripSchema = new Schema({
     type: Number,
     default: 0,
   },
-  likesByUsers: Array
+  likesByUsers: Array,
 });
 
 module.exports = mongoose.model('trips', tripSchema);
