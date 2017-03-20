@@ -20,6 +20,7 @@ export default function renderChildren(props, state, context) {
       return React.cloneElement(child, {
         authenticated: state.authenticated,
         username: state.username,
+        searchTerm: state.term,
       });
     }
     return child;

@@ -10,11 +10,13 @@ export default class Searchbar extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleSubmit(e) {
-    e.preventDefault();
+    this.setState({ term: '' })
+    this.props.getSearchTerm('')
   }
 
   handleChange(e) {
-    this.setState({term: event.target.value});
+    this.setState({term: e.target.value});
+    this.props.getSearchTerm(this.state.term)
   }
 
   render() {
@@ -23,8 +25,8 @@ export default class Searchbar extends Component {
         <div className="form-group">
           <div className="input-group">
  
-            <input className="form-control" placeholder="Search" type="text" />
-            <span className="input-group-addon"><span className="glyphicon glyphicon-search"></span> </span>
+            <input className="form-control" value={this.state.term} placeholder="Search" type="text" onChange={this.handleChange}/>
+            <a href='#' onClick={this.handleSubmit} className="input-group-addon"><span className="glyphicon glyphicon-remove"></span> </a>
           </div>
         </div>
       </form>

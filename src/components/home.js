@@ -35,18 +35,18 @@ export default class Home extends Component {
         })
         break;
       case 'newest':
-      this.setState({ sortedData: this.state.tripData.slice().reverse() })
+        this.setState({ sortedData: this.state.tripData.slice().reverse() })
         break;
       case 'tripname': 
           this.setState({ sortedData: this.state.tripData.slice().sort((a,b) => {
             return a.tripName.localeCompare(b.tripName)
           }) 
         })
-          console.log(this.state.tripData)
         break;
       case 'oldest':
         this.setState({ sortedData: this.state.tripData.slice() })
-        console.log(this.state.sortedData)
+        break;
+      default:
         break;
     } 
   }
@@ -69,8 +69,22 @@ export default class Home extends Component {
     }).then(res => this.setState({ weatherData: res.data }))
   }
 
+  renderTripComponents() {
+    let { sortedData } = this.state
+    const { searchTerm } = this.props
+    if (searchTerm) {
+      sortedData = sortedData.filter(entry => {
+        const { description, locations, names, tips, tripName } = entry
+        const concatination = description + ' ' + locations + ' ' + names + ' ' + tips + ' ' + tripName
+        console.log(new RegExp(this.props.searchTerm, 'i'))
+        return new RegExp(this.props.searchTerm, 'i').test(concatination)
+      }) 
+    } 
+    return sortedData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData} fetchTrips={this.fetchTrips}/>);
+  }
+
   render() {
-    const tripComponents = this.state.sortedData.map(trip => <Trip trip={trip} key={trip._id} username={this.props.username} userData={this.state.userData} fetchUserData={this.fetchUserData} fetchTrips={this.fetchTrips}/>);
+    const tripComponents = this.renderTripComponents()
     return (
     <div style={{maxWidth:'1400px', margin: 'auto'}}>
       <div className="col-xs-8">

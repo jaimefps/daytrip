@@ -14,8 +14,9 @@ class App extends Component {
       username: this.props.route.routerProps[1],
       err: '',
       hasErr: false,
+      term:'',
     };
-
+    this.getSearchTerm = this.getSearchTerm.bind(this);
     this.signup = this.signup.bind(this);
     this.signin = this.signin.bind(this);
     this.signout = this.signout.bind(this);
@@ -56,8 +57,12 @@ class App extends Component {
 
   renderHeader() {
     return this.props.location.pathname !== '/' ?
-      <Header authenticated={this.state.authenticated} username={this.state.username} pathname={this.props.location.pathname} /> :
+      <Header getSearchTerm={this.getSearchTerm} authenticated={this.state.authenticated} username={this.state.username} pathname={this.props.location.pathname} /> :
     null;
+  }
+
+  getSearchTerm(term) {
+    this.setState({ term });
   }
 
   render() {

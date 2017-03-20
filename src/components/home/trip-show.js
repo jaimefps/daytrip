@@ -20,7 +20,7 @@ export default class TripShow extends Component {
   componentDidMount() {
     const { locations, images } = this.props.trip;
     this.setState({ locations, images });
-    this.setState({ image: images[0].slice(0, images[0].length-12)+'w200-h200-k/' })
+    this.setState({ image: images[0] })
   }
 
 

@@ -18,5 +18,5 @@ module.exports = function (app) {
   app.put('/user', requireAuth, userHandler.updateUserInfo);
   app.patch('/user', requireAuth, userHandler.updateUserFriends); 
   app.get('/weather', requireAuth, weatherHandler.sendData)
-  app.patch('/weather', requireAuth, weatherHandler.fetchData)
+  app.patch('/weather', weatherHandler.fetchData)
 };

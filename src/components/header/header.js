@@ -15,7 +15,7 @@ export default class Header extends Component {
     }
     return [
       <Dropdown key={1} username={this.props.username} />,
-      <Searchbar key={2} />,
+      <Searchbar key={2} getSearchTerm={this.props.getSearchTerm} />,
     ];
   }
 

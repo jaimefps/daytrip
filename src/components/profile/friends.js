@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 export default class Friends extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +16,6 @@ export default class Friends extends Component {
 
 
   render() {
-    const userLink = `/profile/${this.props.friend}`
     return (
         <div className="panel panel-default">
           <div className="panel-body">
