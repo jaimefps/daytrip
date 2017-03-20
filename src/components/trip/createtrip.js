@@ -72,6 +72,9 @@ export default class CreateTrip extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (!this.state.names.length) {
+      return this.setState({alert: <div className="alert alert-danger">Please add atleast one location</div>})
+    }
     const { tripName, locations, tips, names, description, images, coordinates } = this.state;
     const username = this.props.username;
     axios.post(`${config.server}/trips`, { coordinates, tripName, username, description, images, locations, tips, names }, {
@@ -79,13 +82,14 @@ export default class CreateTrip extends Component {
     }).then((res) => {
       this.setState({ tripName: '' });
     });
+    this.setState({alert: ''})
     browserHistory.push('/home');
   }
 
   addMarker(lat, lng) {
     const icon= {
     url: svg,
-    scaledSize: new window.google.maps.Size(64, 64)
+    scaledSize: new window.google.maps.Size(48, 48)
     }
     var contentString = `<div id="content"><div id="siteNotice"></div>
       <h3 id="firstHeading" class="firstHeading">${this.state.locationName}</h3>
@@ -122,7 +126,7 @@ export default class CreateTrip extends Component {
   }
 
   capitalize(string) {
-    return string.split(' ').map(word => word[0].toUpperCase()+word.slice(1)).join(' ')
+    return string.split(' ').map(word => word.replace(/\s/,'')?word[0].toUpperCase()+word.slice(1):'').join(' ')
   }
 
   handleAdd(e) {

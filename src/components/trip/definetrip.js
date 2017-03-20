@@ -19,7 +19,7 @@ export default class DefineTrip extends Component {
   }
 
   capitalize(string) {
-    return string.split(' ').map(word => word[0].toUpperCase()+word.slice(1)).join(' ')
+    return string.split(' ').map(word => word.replace(/\s/,'')?word[0].toUpperCase()+word.slice(1):'').join(' ')
   }
 
   handleSubmit(e) {

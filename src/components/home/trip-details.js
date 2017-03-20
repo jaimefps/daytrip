@@ -51,7 +51,7 @@ export default class TripDetails extends Component {
   addMarkers() {
     const icon = {
       url: svg,
-      scaledSize: new window.google.maps.Size(64, 64)
+      scaledSize: new window.google.maps.Size(48, 48)
     }
     this.state.data.coordinates.map((loc, i) => {
 
