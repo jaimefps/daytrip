@@ -123,9 +123,8 @@ export default class TripShow extends Component {
   render() {
     const linkUser = `/profile/${this.props.trip.username}`
     return (
-      <div className="container" style={{width: '150%'}}>    
-        <div className="row">
-          <div className="col-md-8">        
+
+          <div className="col-md-8"  style={{width: '100%'}}>        
             <div className="panel panel-default  panel--styled">
               <div className="panel-body">
                 <div className="col-md-12 panelTop">  
@@ -151,8 +150,6 @@ export default class TripShow extends Component {
               </div>
             </div>
           </div>
-        </div>
-      </div>
     )
   }
 }
