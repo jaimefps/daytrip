@@ -78,7 +78,8 @@ export default class TripDetails extends Component {
       this.bounds.extend(marker.position);
       this.map.fitBounds(this.bounds);
       const zoom = this.map.getZoom();
-      this.map.setZoom(zoom > 14 ? 14 : zoom);
+      console.log(zoom)
+      if (this.state.data.names.length === 1) this.map.setZoom(zoom > 14 ? 14 : zoom);
       return path.push({ lat: () => loc[0], lng: () => loc[1] });
     });
   }
