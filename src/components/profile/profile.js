@@ -128,7 +128,7 @@ export default class Profile extends Component {
             <img className="card-bkimg" alt="" src="../../../public/bg.jpg" />
           </div>
           <div className="useravatar">
-            <img alt="" src="http://www.drodd.com/images12/happy-face15.jpg" />
+            <img alt="" src="https://maxcdn.icons8.com/windows10/PNG/512/User_Interface/cat_profile-512.png" />
           </div>
           <div className="card-info"> <span className="card-title">{this.props.params.username}</span>
           </div>
