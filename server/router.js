@@ -11,10 +11,16 @@ const requireSignin = passport.authenticate('local', { session: false });
 module.exports = function (app) {
   app.post('/signup', Authentication.signup);
   app.post('/signin', requireSignin, Authentication.signin);
-  app.get('/trips', requireAuth, tripsHandler.getTrips);
+
+// jaime/westin: removed middleware in the following route such that we can get friend data;
+  app.get('/trips', tripsHandler.getTrips);
+
   app.post('/trips', requireAuth, tripsHandler.postTrips);
   app.put('/trips', requireAuth, tripsHandler.updateTrips);
-  app.get('/user', requireAuth, userHandler.getUserInfo);
+
+// jaime/westin: removed middleware in the following route such that we get friend data;
+  app.get('/user', userHandler.getUserInfo);
+
   app.put('/user', requireAuth, userHandler.updateUserInfo);
   app.patch('/user', requireAuth, userHandler.updateUserFriends);
   app.get('/weather', requireAuth, weatherHandler.sendData);
