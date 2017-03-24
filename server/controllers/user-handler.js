@@ -12,7 +12,6 @@ exports.getUserInfo = function (req, res) {
     .catch(e => res.status(422).send({ error: 'cannot get user' }));
 };
 
-
 exports.updateUserInfo = function (req, res) {
   const { username, _id, del } = req.body;
   User.findOne({ username }).then((user) => {

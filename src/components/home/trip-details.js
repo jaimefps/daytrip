@@ -13,10 +13,11 @@ export default class TripDetails extends Component {
     super(props);
 
     this.state = {
+      lol: 0,
       data: {
         likesByUsers: []
       },
-
+      userInfo: {},
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -25,6 +26,20 @@ export default class TripDetails extends Component {
     return axios.get(`${config.server}/trips?id=${this.props.params.id}`, {
       headers: { authorization: localStorage.getItem('token') },
     }).then(res => this.setState({ data: res.data }));
+  }
+
+  getUserInfo() {
+    return axios.get(`${config.server}/user`, {
+      params: {
+        username: localStorage.getItem('username'),
+      },
+    })
+    .then((res) => {
+      this.setState({ userInfo: res.data });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 
   componentDidMount() {
@@ -46,6 +61,7 @@ export default class TripDetails extends Component {
         });
         this.poly.setMap(this.map);
         this.fetchData().then(() => this.addMarkers());
+        this.getUserInfo();
       },
     });
   }
@@ -84,7 +100,6 @@ export default class TripDetails extends Component {
       this.bounds.extend(marker.position);
       this.map.fitBounds(this.bounds);
       const zoom = this.map.getZoom();
-      console.log(zoom)
       if (this.state.data.names.length === 1) this.map.setZoom(zoom > 14 ? 14 : zoom);
       return path.push({ lat: () => loc[0], lng: () => loc[1] });
     });
@@ -97,10 +112,14 @@ export default class TripDetails extends Component {
   }
 
 // jaime and westin work ~~~~~~~~~~~~~~~~~~~~~~> start
+
   renderLikesButtonCaption() {
     return _.includes(this.state.data.likesByUsers, localStorage.getItem('username')) ? 'Remove Like' : 'Add Like';
   }
 
+  renderFavoritesButtonCaption() {
+    return _.includes(this.state.userInfo.favorites, this.state.data._id) ? 'Remove from favorites' : 'Add to favorites';
+  }
 
   updateRoute(route, action) {
     const username = localStorage.getItem('username');
@@ -108,36 +127,54 @@ export default class TripDetails extends Component {
     const del = (action === 'delete');
     axios.put(`${config.server}/${route}`, { _id, likes, username, del, likesByUsers }, {
       headers: { authorization: localStorage.getItem('token') },
-    }).then((res) => {
-      console.log('update route fired with ', res)
-    });
+    }).then(() => this.getUserInfo() );
   }
 
-//hack-a-licious
   handleClick(e) {
     if (e.target.name === 'Add Like') {
       this.state.data.likesByUsers.push(localStorage.getItem('username'));
       this.updateRoute('trips');
-    } else if (e.target.name === 'Remove Like') {
+    } 
+    else if (e.target.name === 'Remove Like') {
       _.pull(this.state.data.likesByUsers, localStorage.getItem('username'));
       this.updateRoute('trips', 'delete');
     }
-    this.setState({ lol: Math.random() })
+    else if (e.target.name === 'Add to favorites') {
+      this.state.userInfo.favorites.push(localStorage.getItem('username'));
+      this.updateRoute('user');
+      console.log('add fav: ', this.state.userInfo.favorites);
+    } 
+    else if (e.target.name === 'Remove from favorites') {
+      _.pull(this.state.userInfo.favorites, this.state.data._id);
+      this.updateRoute('user', 'delete');
+      console.log('remove fav: ', this.state.userInfo.favorites);
+    }
+    this.setState({ lol: this.state.lol++ })
   }
 
-// jaime and westin work ~~~~~~~~~~~~~~~~~~~~~~> end
-
   render() {
-    console.log(this.state.data);
-    let button = <button className="btn btn-primary tripDetailsBtnn" style={{ color: 'white' }} name={this.renderLikesButtonCaption()} onClick={this.handleClick}>{this.state.data.likesByUsers.length} <span style={{ marginRight: '5px', marginLeft: '5px' }}>|</span> <span className="glyphicon glyphicon-thumbs-up" /> {this.renderLikesButtonCaption()}</button>;
+    console.log(this.state.userInfo)
+    let likeBttn = <button className="btn btn-primary tripDetailsBttn" style={{ color: 'white' }} name={this.renderLikesButtonCaption()} onClick={this.handleClick}>
+    {this.state.data.likesByUsers.length} 
+    <span style={{ marginRight: '5px', marginLeft: '5px' }}>|</span> <span className="glyphicon glyphicon-thumbs-up" /> 
+    { this.renderLikesButtonCaption() }
+    </button>;
+    
+    let favBttn = <button className="btn btn-primary tripDetailsBttn" style={{ color: 'white' }} name={this.renderFavoritesButtonCaption()} onClick={this.handleClick}>
+    <span className="glyphicon glyphicon-heart" /> 
+    { this.renderFavoritesButtonCaption() } 
+    </button>
+
     return (
       <div className="createMap" style={{ height: '100%', width: '100%', position: 'relative' }}>
         <div style={{ height: '100%', width: '50%', position: 'absolute' }} className="col-xs-6 col-xs-offset-6" id="map" />
         <div className="col-xs-6" style={{ maxHeight: '100%', overflow: 'scroll' }}>
-          <div className="col-xs-12">{this.state.data.tripName ? <h1 style={{ fontFamily: 'lobster' }}>{this.state.data.tripName} { button }<hr /></h1> : ''}</div>
+          <div className="col-xs-12">{this.state.data.tripName ? <h1 style={{ fontFamily: 'lobster' }}>{this.state.data.tripName}{likeBttn}{favBttn}<hr /></h1> : ''}</div>
           { this.renderLocations() }
         </div>
       </div>
     );
   }
 }
+
+// jaime and westin work ~~~~~~~~~~~~~~~~~~~~~~> end
