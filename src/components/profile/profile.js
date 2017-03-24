@@ -121,6 +121,7 @@ export default class Profile extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="col-md-6 col-md-offset-3" style={{ overflowY: 'scroll' }}>
         <div className="card hovercard">

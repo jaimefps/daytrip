@@ -39,7 +39,7 @@ export default class Friends extends Component {
     return (
       <div className="panel panel-default">
         <div className="panel-body">
-          <img className="friend_avatar" src="http://jeanbaptiste.bayle.free.fr/AVATAR/white-grey_default_avatar17.jpg" />
+          <img className="friend_avatar" src="http://jeanbaptiste.bayle.free.fr/AVATAR/white-grey_default_avatar17.jpg" alt={''+ this.props.friend + " user avatar"}/>
           <div className="friend_info">
             <h4 onClick={this.handleClick.bind(this)} style={{ cursor: 'pointer' }}>Traveler: {this.props.friend}</h4>
             <h4> Rank: {this.state.rank} </h4>
