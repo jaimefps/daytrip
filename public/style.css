@@ -193,7 +193,7 @@ body{
 /* Jaime's mini contributions */
 
 .weatherFix {
-
+  top: 150px;
 }
 .friend_avatar {
   margin-right: 50px;
