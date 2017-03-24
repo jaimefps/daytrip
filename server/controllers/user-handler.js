@@ -8,16 +8,23 @@ exports.getUserInfo = function (req, res) {
       favorites: user.favorites,
       friends: user.friends,
       trips: user.trips,
+      avatar: user.avatar,
+      username: user.username,
     }))
     .catch(e => res.status(422).send({ error: 'cannot get user' }));
 };
 
 exports.updateUserInfo = function (req, res) {
-  const { username, _id, del } = req.body;
+  const { username, _id, del, avatar } = req.body;
   User.findOne({ username }).then((user) => {
     if (del) {
       user.favorites.splice(user.favorites.indexOf(_id), 1);
       return user.save().then(trip => res.status(200).send(trip));
+    }
+    if (avatar){
+      console.log('avatar is ', avatar);
+      user.avatar = avatar;
+      return user.save().then(mongoResponse => res.status(200).send(mongoResponse));
     }
     Trips.findById(_id).then((trip) => {
       user.favorites.push(trip._id);
@@ -25,6 +32,7 @@ exports.updateUserInfo = function (req, res) {
     });
   });
 };
+
 
 exports.updateUserFriends = function (req, res) {
   const { username, friend, del } = req.body;

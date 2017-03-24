@@ -19,6 +19,7 @@ const userSchema = new Schema({
   },
   favorites: Array,
   friends: Array,
+  avatar: String
 });
 
 userSchema.pre('save', function (next) {
