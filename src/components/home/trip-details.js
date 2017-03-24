@@ -142,18 +142,15 @@ export default class TripDetails extends Component {
     else if (e.target.name === 'Add to favorites') {
       this.state.userInfo.favorites.push(localStorage.getItem('username'));
       this.updateRoute('user');
-      console.log('add fav: ', this.state.userInfo.favorites);
     } 
     else if (e.target.name === 'Remove from favorites') {
       _.pull(this.state.userInfo.favorites, this.state.data._id);
       this.updateRoute('user', 'delete');
-      console.log('remove fav: ', this.state.userInfo.favorites);
     }
     this.setState({ lol: this.state.lol++ })
   }
 
   render() {
-    console.log(this.state.userInfo)
     let likeBttn = <button className="btn btn-primary tripDetailsBttn" style={{ color: 'white' }} name={this.renderLikesButtonCaption()} onClick={this.handleClick}>
     {this.state.data.likesByUsers.length} 
     <span style={{ marginRight: '5px', marginLeft: '5px' }}>|</span> <span className="glyphicon glyphicon-thumbs-up" /> 

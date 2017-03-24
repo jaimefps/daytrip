@@ -35,7 +35,6 @@ export default class Friends extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="panel panel-default">
         <div className="panel-body">

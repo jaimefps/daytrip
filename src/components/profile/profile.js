@@ -121,7 +121,6 @@ export default class Profile extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="col-md-6 col-md-offset-3" style={{ overflowY: 'scroll' }}>
         <div className="card hovercard">
@@ -131,7 +130,7 @@ export default class Profile extends Component {
           <div className="useravatar">
             <img alt="" src="https://maxcdn.icons8.com/windows10/PNG/512/User_Interface/cat_profile-512.png" />
           </div>
-          <div className="card-info"> <span className="card-title">{this.props.params.username} Rank: {this.state.userTrips ? this.state.userTrips.reduce((a,b) => a + b.likes, 0): 0}</span>
+          <div className="card-info"> <span className="card-title">{this.props.params.username} Rank: {this.state.userTrips ? this.state.userTrips.reduce((a,b) => a + b.likes, 0): 0} Created: {this.state.userTrips.length}</span>
           </div>
         </div>
         <div className="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
