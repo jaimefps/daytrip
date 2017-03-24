@@ -27,7 +27,7 @@ export default class SortBar extends Component {
   }
   render() {
     return (
-      <nav className="navbar navbar-default">
+      <nav className="affix col-xs-4 navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
             <a className="navbar-brand">Sort By</a>
