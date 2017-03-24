@@ -112,7 +112,6 @@ export default class CreateTrip extends Component {
     this.bounds.extend(marker.position);
     this.map.fitBounds(this.bounds);
     const zoom = this.map.getZoom();
-    console.log(this.state.coordinates.length)
     if (!this.state.names.length) this.map.setZoom(zoom > 14 ? 14 : zoom);
   }
 
