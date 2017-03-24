@@ -193,8 +193,7 @@ body{
 /* Jaime's mini contributions */
 
 .weatherFix {
-  position: fixed;
-  top: 150px;
+
 }
 .friend_avatar {
   margin-right: 50px;
@@ -202,7 +201,6 @@ body{
   margin-left: 8px;
 }
 .friend_info {
-  padding: 10px;
   display: inline-block;
 }
 .friend_info > h4 {

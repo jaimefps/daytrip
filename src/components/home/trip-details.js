@@ -13,7 +13,9 @@ export default class TripDetails extends Component {
     super(props);
 
     this.state = {
-      data: {},
+      data: {
+        likesByUsers: []
+      },
 
     };
     this.handleClick = this.handleClick.bind(this);
@@ -114,21 +116,20 @@ export default class TripDetails extends Component {
 //hack-a-licious
   handleClick(e) {
     if (e.target.name === 'Add Like') {
-      this.state.data.likes++;
       this.state.data.likesByUsers.push(localStorage.getItem('username'));
       this.updateRoute('trips');
     } else if (e.target.name === 'Remove Like') {
-      this.state.data.likes--;
       _.pull(this.state.data.likesByUsers, localStorage.getItem('username'));
       this.updateRoute('trips', 'delete');
     }
-    this.setState({ lol: Math.random() });
+    this.setState({ lol: Math.random() })
   }
+
 // jaime and westin work ~~~~~~~~~~~~~~~~~~~~~~> end
 
   render() {
-    console.log(localStorage);
-    let button = <button className="btn btn-primary tripDetailsBtnn" style={{ color: 'white' }} name={this.renderLikesButtonCaption()} onClick={this.handleClick}>{this.state.data.likes} <span style={{ marginRight: '5px', marginLeft: '5px' }}>|</span> <span className="glyphicon glyphicon-thumbs-up" /> {this.renderLikesButtonCaption()}</button>;
+    console.log(this.state.data);
+    let button = <button className="btn btn-primary tripDetailsBtnn" style={{ color: 'white' }} name={this.renderLikesButtonCaption()} onClick={this.handleClick}>{this.state.data.likesByUsers.length} <span style={{ marginRight: '5px', marginLeft: '5px' }}>|</span> <span className="glyphicon glyphicon-thumbs-up" /> {this.renderLikesButtonCaption()}</button>;
     return (
       <div className="createMap" style={{ height: '100%', width: '100%', position: 'relative' }}>
         <div style={{ height: '100%', width: '50%', position: 'absolute' }} className="col-xs-6 col-xs-offset-6" id="map" />
