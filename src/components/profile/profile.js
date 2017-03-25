@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import axios from 'axios';
 import config from '../../config';
 import TripShow from '../home/trip-tile';
 import Friends from './friends';
+import UpdateProfile from './update';
 import _ from 'lodash';
 
 export default class Profile extends Component {
@@ -102,6 +104,14 @@ export default class Profile extends Component {
         friendsTab: 'btn btn-primary',
       });
     }
+    if (e.target.id === 'avatar'){
+      this.setState({
+        currentTab: e.target.id,
+        tripsTab: 'btn btn-default',
+        favoritesTab: 'btn btn-default',
+        friendsTab: 'btn btn-default',
+      });
+    }
   }
 
   renderChild() {
@@ -118,9 +128,18 @@ export default class Profile extends Component {
       if (!this.state.userInfo.friends.length) return <h2 className="text-center"> No Friends Yet </h2>;
       return this.state.userInfo.friends.map(friend => <Friends friend={friend} key={Math.random()} />);
     }
+    if (this.state.currentTab === 'avatar') {
+      //completely unhackable authentication
+      if (this.state.userInfo.username === this.props.username){
+        return <UpdateProfile username={this.props.username} avatarUrl={this.state.userInfo.avatar}/>;
+      } else {
+        return <img src={this.state.userInfo.avatar} />
+      }
+    }
   }
 
   render() {
+    console.log('USERINFO', this.state.userInfo);
     return (
       <div className="col-md-6 col-md-offset-3" style={{ overflowY: 'scroll' }}>
         <div className="card hovercard">
@@ -128,7 +147,8 @@ export default class Profile extends Component {
             <img className="card-bkimg" alt="" src="../../../public/bg.jpg" />
           </div>
           <div className="useravatar">
-            <img alt="" src="https://maxcdn.icons8.com/windows10/PNG/512/User_Interface/cat_profile-512.png" />
+            <img alt="User Avatar" src={this.state.userInfo.avatar ? this.state.userInfo.avatar : "https://maxcdn.icons8.com/windows10/PNG/512/User_Interface/cat_profile-512.png"}
+              onClick={this.handleClick} id="avatar"/>
           </div>
           <div style={{border:"1px dotted lightgrey", backgroundColor: "#F2F6F8"}}>
             <h4>Traveler: {this.props.params.username} <span className="user_rank">Rank: {this.state.userTrips ? this.state.userTrips.reduce((a,b) => a + b.likes, 0): 0}</span> Trips Created: {this.state.userTrips.length}</h4> 
