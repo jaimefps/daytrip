@@ -21,6 +21,18 @@ export default class Friends extends Component {
     this.getUserInfo();
   }
 
+  fetchTrips() {
+    return axios.get(`${config.server}/trips`, {
+      params: {
+        username: this.props.friend
+      },
+      headers: {
+        authorization: localStorage.getItem('token'),
+      },
+    })
+    .then(res => this.setState({ rank: res.data.reduce((a,b) => a + b.likes, 0), created: res.data.length }))
+  }
+
   handleClick() {
     const userLink = `/profile/${this.props.friend}`;
     browserHistory.replace(userLink);
@@ -44,25 +56,33 @@ export default class Friends extends Component {
     });
   }
 
+  handleFriends(del) {
+    axios.patch(`${config.server}/user`, { username: localStorage.getItem('username'), del, friend: this.props.friend}, {
+      headers: { authorization: localStorage.getItem('token') },
+    }).then((res) => {
+      this.getUserInfo();
+      this.fetchTrips();
+    });
+  }
   renderFriendsButtonCaption() {
     return _.includes(this.state.userInfo.friends, this.props.friend) ? 'Remove friend' : 'Add friend';
   }
   renderAddFriend() {
-      return(<button style={{ float: "right" }}>{ this.renderFriendsButtonCaption() }</button>)
+    return(
+      <button onClick={() => this.handleFriendBttn(this.renderFriendsButtonCaption())} style={{ float: "right", color: 'white' }} className="btn btn-primary">{this.renderFriendsButtonCaption()}</button>
+    )
+  }
+  handleFriendBttn(e) {
+    if(e === 'Remove friend') {
+      this.handleFriends(true);
+    }
+    else if (e === 'Add friend') {
+      this.handleFriends(false);
+    }
+    this.render();
   }
   // jaime END
 
-  fetchTrips() {
-    return axios.get(`${config.server}/trips`, {
-      params: {
-        username: this.props.friend
-      },
-      headers: {
-        authorization: localStorage.getItem('token'),
-      },
-    })
-    .then(res => this.setState({ rank: res.data.reduce((a,b) => a + b.likes, 0), created: res.data.length }))
-  }
   render() {
     console.log('friends.js PROPS`', this.props)
     console.log('friends.js STATE', this.state)
