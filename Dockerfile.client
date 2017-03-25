@@ -1,0 +1,10 @@
+FROM node:boron
+
+ADD ./package.json /app/package.json
+WORKDIR /app
+RUN npm install
+
+ADD ./src /app/src
+RUN npm build
+
+CMD npm start
