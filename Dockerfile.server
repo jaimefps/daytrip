@@ -1,8 +1,10 @@
 FROM node:boron
 
+RUN apt-get update && apt-get install yarn
+
 ADD ./package.json /app/package.json
 WORKDIR /app
-RUN npm install
+RUN yarn install --production
 
 ADD ./server /app/server
 
