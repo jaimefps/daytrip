@@ -39,6 +39,7 @@ export default class Friends extends Component {
   }
 
   // jaime START
+
   getUserInfo() {
     return axios.get(`${config.server}/user`, {
       params: {
@@ -72,15 +73,16 @@ export default class Friends extends Component {
       <button onClick={() => this.handleFriendBttn(this.renderFriendsButtonCaption())} style={{ float: "right", color: 'white' }} className="btn btn-primary">{this.renderFriendsButtonCaption()}</button>
     )
   }
-  handleFriendBttn(e) {
-    if(e === 'Remove friend') {
+  handleFriendBttn(status) {
+    if(status === 'Remove friend') {
       this.handleFriends(true);
     }
-    else if (e === 'Add friend') {
+    else if (status === 'Add friend') {
       this.handleFriends(false);
     }
     this.render();
   }
+  
   // jaime END
 
   render() {
